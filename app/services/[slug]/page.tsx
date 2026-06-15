@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import Cta, { Eyebrow } from "@/components/Cta";
 import Reveal from "@/components/Reveal";
 import { getService, services } from "@/data/services";
-import { waQuote } from "@/lib/site";
+import { site, waQuote } from "@/lib/site";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -53,7 +53,7 @@ export default async function ServiceDetailPage({ params }: Props) {
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-ink/25"
+          className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/25"
         />
         <div className="relative mx-auto w-full max-w-6xl px-4 pb-16 pt-44 sm:px-6 sm:pb-20">
           <Reveal>
@@ -110,7 +110,7 @@ export default async function ServiceDetailPage({ params }: Props) {
           <Reveal delay={150}>
             <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-1.5">
               <div className="rounded-[10px] bg-ink-soft p-7">
-                <h3 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-beam">
+                <h3 className="text-[11px] font-medium uppercase tracking-[0.3em] text-mist/80">
                   Capabilities
                 </h3>
                 <ul className="mt-5 space-y-3">
@@ -169,12 +169,8 @@ export default async function ServiceDetailPage({ params }: Props) {
       </section>
 
       {/* ---- CTA + next service ---- */}
-      <section className="relative overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-[radial-gradient(70%_90%_at_50%_115%,rgba(224,28,36,0.25),transparent_70%)]"
-        />
-        <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
+      <section className="border-t border-white/8">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
           <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-center">
             <Reveal>
               <div>
@@ -185,10 +181,16 @@ export default async function ServiceDetailPage({ params }: Props) {
                   Message us on WhatsApp with your brief (sizes, quantities and
                   deadline) and we&rsquo;ll quote it.
                 </p>
-                <div className="mt-7">
+                <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
                   <Cta href={waQuote(service.name)}>
                     Get a quote on WhatsApp
                   </Cta>
+                  <a
+                    href={`tel:${site.phones[0].tel}`}
+                    className="inline-flex min-h-11 items-center text-sm font-medium text-paper underline-offset-4 hover:underline"
+                  >
+                    or call {site.phones[0].label}
+                  </a>
                 </div>
               </div>
             </Reveal>

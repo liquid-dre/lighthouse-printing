@@ -105,8 +105,8 @@ export default function AboutPage() {
           <Reveal delay={160} clip>
             <figure className="relative aspect-[4/5] overflow-hidden rounded-2xl lg:aspect-auto lg:h-full">
               <Image
-                src="/images/ds-office.jpg"
-                alt="Inside the Lighthouse studio, with brand values printed large on the office wall"
+                src="/images/hero-press.jpg"
+                alt="The Heidelberg Speedmaster SM-74 on a dark studio stage, raked by warm light"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover"
@@ -122,7 +122,7 @@ export default function AboutPage() {
           <Reveal>
             <div className="h-full rounded-2xl border border-white/8 bg-white/[0.03] p-1.5">
               <div className="h-full rounded-[10px] bg-ink-soft p-8">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-beam">
+                <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-mist/80">
                   Our vision
                 </p>
                 <p className="font-display mt-4 text-xl font-bold leading-snug tracking-tight text-paper sm:text-2xl">
@@ -135,7 +135,7 @@ export default function AboutPage() {
           <Reveal delay={100}>
             <div className="h-full rounded-2xl border border-white/8 bg-white/[0.03] p-1.5">
               <div className="h-full rounded-[10px] bg-ink-soft p-8">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-beam">
+                <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-mist/80">
                   Our mission
                 </p>
                 <p className="font-display mt-4 text-xl font-bold leading-snug tracking-tight text-paper sm:text-2xl">
@@ -195,7 +195,7 @@ export default function AboutPage() {
                     {inner}
                   </a>
                 ) : (
-                  <div className={`${cls} border-signal/30`}>{inner}</div>
+                  <div className={`${cls} border-white/15`}>{inner}</div>
                 )}
               </Reveal>
             );

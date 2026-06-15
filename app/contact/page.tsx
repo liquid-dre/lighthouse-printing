@@ -45,7 +45,7 @@ export default function ContactPage() {
             <Reveal>
               <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-1.5">
                 <div className="rounded-[10px] bg-ink-soft p-7">
-                  <h2 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-beam">
+                  <h2 className="text-[11px] font-medium uppercase tracking-[0.3em] text-mist/80">
                     Call us
                   </h2>
                   <ul className="mt-5 grid gap-x-8 gap-y-1 sm:grid-cols-2">
@@ -71,7 +71,7 @@ export default function ContactPage() {
             <Reveal delay={90}>
               <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-1.5">
                 <div className="rounded-[10px] bg-ink-soft p-7">
-                  <h2 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-beam">
+                  <h2 className="text-[11px] font-medium uppercase tracking-[0.3em] text-mist/80">
                     Visit us
                   </h2>
                   <p className="mt-4 text-[15px] leading-relaxed text-paper/90">
@@ -98,7 +98,7 @@ export default function ContactPage() {
             <Reveal delay={180}>
               <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-1.5">
                 <div className="rounded-[10px] bg-ink-soft p-7">
-                  <h2 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-beam">
+                  <h2 className="text-[11px] font-medium uppercase tracking-[0.3em] text-mist/80">
                     Follow the work
                   </h2>
                   <ul className="mt-5 flex flex-wrap gap-3">

@@ -100,7 +100,7 @@ export const services: Service[] = [
       "Packaging & label design",
       "Artwork, proofing & pre-press",
     ],
-    hero: { src: "/images/ds-office.jpg", alt: "Lighthouse design studio wall with printed brand values posters" },
+    hero: { src: "/images/ds-prepress.jpg", alt: "A press proof on a dark studio stage with crop marks, a registration target and a CMYK colour bar under raking light" },
     gallery: [
       { src: "/images/ds-poster-hazel.jpg", alt: "Bold green promotional poster designed for Hazel Knitwear" },
       { src: "/images/ds-poster-dog.jpg", alt: "Pet adoption poster with playful typography" },
