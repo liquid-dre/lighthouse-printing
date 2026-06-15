@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import Cta, { Eyebrow } from "@/components/Cta";
 import Reveal from "@/components/Reveal";
-import PrintReveal from "@/components/PrintReveal";
+import PressFeed, { type FeedItem } from "@/components/PressFeed";
 import { services } from "@/data/services";
 import { site, wa, waQuote } from "@/lib/site";
 
@@ -37,11 +35,23 @@ const steps = [
   },
 ];
 
+// The five crafts, fed through the press window (PressFeed).
+const feedItems: FeedItem[] = services.map((s) => ({
+  src: s.hero.src,
+  alt: s.hero.alt,
+  eyebrow: s.spec,
+  title: s.name,
+  body: s.tagline,
+  bullets: s.capabilities.slice(0, 4),
+  primary: { href: waQuote(s.name), label: "Request a quote" },
+  secondary: { href: `/services/${s.slug}`, label: "See the work" },
+}));
+
 export default function ServicesPage() {
   return (
     <>
       {/* ---- header ---- */}
-      <section className="mx-auto max-w-6xl px-4 pb-16 pt-36 sm:px-6 sm:pt-44">
+      <section className="mx-auto max-w-6xl px-4 pb-12 pt-36 sm:px-6 sm:pt-44">
         <Reveal>
           <Eyebrow>Services</Eyebrow>
         </Reveal>
@@ -62,7 +72,7 @@ export default function ServicesPage() {
             {services.map((s) => (
               <a
                 key={s.slug}
-                href={`#${s.slug}`}
+                href={`/services/${s.slug}`}
                 className="btn inline-flex min-h-11 items-center rounded-full border border-ink/15 bg-white px-4 text-sm font-medium text-muted hover:border-ink/40 hover:text-ink"
               >
                 {s.name}
@@ -72,96 +82,10 @@ export default function ServicesPage() {
         </Reveal>
       </section>
 
-      {/* ---- in-depth anchored sections (case-study rhythm) ---- */}
-      {services.map((s, i) => {
-        const flip = i % 2 === 1;
-        return (
-          <section
-            key={s.slug}
-            id={s.slug}
-            aria-labelledby={`${s.slug}-title`}
-            className={i % 2 === 1 ? "border-y border-ink/10 bg-white" : ""}
-          >
-            <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
-              <div
-                className={`grid items-center gap-10 lg:gap-16 ${
-                  flip ? "lg:grid-cols-[1.1fr_1fr]" : "lg:grid-cols-[1fr_1.1fr]"
-                }`}
-              >
-                <PrintReveal
-                  as="figure"
-                  className={`relative overflow-hidden rounded-2xl border border-ink/10 ${flip ? "lg:order-2" : ""}`}
-                >
-                  <Image
-                    src={s.hero.src}
-                    alt={s.hero.alt}
-                    width={1600}
-                    height={1100}
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="aspect-[16/11] w-full object-cover"
-                  />
-                  <figcaption className="absolute bottom-3 left-3 rounded-full border border-ink/10 bg-paper/90 px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.18em] text-ink backdrop-blur-sm">
-                    {s.spec}
-                  </figcaption>
-                </PrintReveal>
+      {/* ---- the five crafts, fed through the press ---- */}
+      <PressFeed items={feedItems} />
 
-                <div className={flip ? "lg:order-1" : ""}>
-                  <Reveal>
-                    <p className="font-display text-2xl font-extrabold tracking-tight text-signal">
-                      0{i + 1}
-                    </p>
-                    <h2
-                      id={`${s.slug}-title`}
-                      className="font-display mt-2 text-4xl font-extrabold tracking-tight text-ink sm:text-5xl"
-                    >
-                      {s.name}
-                    </h2>
-                    <p className="mt-3 text-lg font-medium text-ink">
-                      {s.tagline}
-                    </p>
-                  </Reveal>
-                  <Reveal delay={100}>
-                    <p className="mt-5 text-[15px] leading-relaxed text-muted">
-                      {s.description[0]}
-                    </p>
-                  </Reveal>
-                  <Reveal delay={160}>
-                    <ul className="mt-7 grid grid-cols-1 gap-x-6 gap-y-2.5 sm:grid-cols-2">
-                      {s.capabilities.map((c) => (
-                        <li
-                          key={c}
-                          className="flex items-start gap-2.5 text-sm leading-snug text-ink/85"
-                        >
-                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-signal-deep">
-                            <path d="m2.5 8.5 3.5 3.5 7.5-8" />
-                          </svg>
-                          {c}
-                        </li>
-                      ))}
-                    </ul>
-                  </Reveal>
-                  <Reveal delay={220}>
-                    <div className="mt-9 flex flex-wrap items-center gap-4">
-                      <Cta href={waQuote(s.name)}>Request a quote</Cta>
-                      <Link
-                        href={`/services/${s.slug}`}
-                        className="group inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ink transition-colors duration-200 hover:text-signal-deep"
-                      >
-                        See the work
-                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-300 ease-(--ease-out-strong) group-hover:translate-x-1">
-                          <path d="M2.5 8h11M9 3.5 13.5 8 9 12.5" />
-                        </svg>
-                      </Link>
-                    </div>
-                  </Reveal>
-                </div>
-              </div>
-            </div>
-          </section>
-        );
-      })}
-
-      {/* ---- how it works (real workflow) + closing ---- */}
+      {/* ---- how it works (real workflow) ---- */}
       <section aria-labelledby="how-it-works" className="border-t border-ink/10">
         <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
           <Reveal>
@@ -176,8 +100,8 @@ export default function ServicesPage() {
             </h2>
           </Reveal>
           <ol className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-            {steps.map((s, i) => (
-              <Reveal as="li" key={s.n} delay={i * 80}>
+            {steps.map((s) => (
+              <Reveal as="li" key={s.n}>
                 <p className="font-display text-3xl font-extrabold tracking-tight text-signal">
                   {s.n}
                 </p>

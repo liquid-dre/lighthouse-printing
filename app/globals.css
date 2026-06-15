@@ -88,85 +88,6 @@ p {
   outline-color: var(--color-paper);
 }
 
-/* ---------- "Printer Feed" — the signature reveal ----------
-   Media prints in top→bottom via clip-path; a thin red print-head line
-   travels with the reveal front. GPU-only (clip-path/transform/opacity).
-   Driven by components/PrintReveal.tsx (adds .is-printed once on enter). */
-.print-reveal {
-  position: relative;
-}
-
-@media (scripting: enabled) {
-  .print-reveal > * {
-    clip-path: inset(0 0 100% 0);
-  }
-}
-
-@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-  .print-reveal > * {
-    transition:
-      clip-path 0.7s var(--ease-out-quint),
-      transform 0.7s var(--ease-out-quint);
-    transition-delay: var(--reveal-delay, 0ms);
-    will-change: clip-path;
-  }
-  .print-reveal.is-printed > * {
-    clip-path: inset(0 0 0 0);
-    animation: print-settle 0.7s var(--ease-out-quint);
-    animation-delay: var(--reveal-delay, 0ms);
-  }
-  /* leading edge: a print-head line that feeds downward, then fades */
-  .print-reveal::after {
-    content: "";
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 2px;
-    background: var(--color-signal);
-    opacity: 0;
-    transform: translateY(0);
-    pointer-events: none;
-    z-index: 2;
-  }
-  .print-reveal.is-printed::after {
-    animation: print-head 0.7s var(--ease-out-quint) forwards;
-    animation-delay: var(--reveal-delay, 0ms);
-  }
-}
-
-@keyframes print-head {
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  82% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(var(--feed, 360px));
-  }
-}
-
-@keyframes print-settle {
-  0% {
-    transform: translateY(-6px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-/* No-JS / reduced-motion: show media instantly, no clip */
-@media (scripting: enabled) and (prefers-reduced-motion: reduce) {
-  .print-reveal > * {
-    clip-path: inset(0 0 0 0);
-    transition: opacity 0.3s ease;
-  }
-  .print-reveal::after {
-    display: none;
-  }
-}
-
 /* ---------- Text reveal (fade-up) for copy blocks ---------- */
 @media (scripting: enabled) {
   .reveal {
@@ -205,7 +126,7 @@ p {
   }
 }
 
-/* ---------- "The Beam" loader (opens on a flat brand-red field) ---------- */
+/* ---------- "The Beam" loader (opens on a flat black field) ---------- */
 @property --beam-angle {
   syntax: "<angle>";
   inherits: false;
@@ -216,7 +137,7 @@ p {
   position: fixed;
   inset: 0;
   z-index: 80;
-  background: var(--color-signal);
+  background: #0a0a0b;
   display: grid;
   place-items: center;
 }

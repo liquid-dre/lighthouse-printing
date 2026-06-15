@@ -14,7 +14,7 @@ type RevealProps = {
  * Fade-up reveal for copy blocks. Adds `.is-visible` once the element
  * enters the viewport. All motion lives in CSS (transform/opacity), and
  * the prefers-reduced-motion + no-JS fallbacks are handled in globals.css.
- * (Media uses PrintReveal for the printer-feed instead.)
+ * (The services case-study block uses PressFeed for the web-fed carousel.)
  */
 export default function Reveal({
   children,

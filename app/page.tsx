@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Cta, { Eyebrow } from "@/components/Cta";
 import Reveal from "@/components/Reveal";
-import PrintReveal from "@/components/PrintReveal";
 import ServiceCard from "@/components/ServiceCard";
 import ClientsMarquee from "@/components/ClientsMarquee";
 import { services } from "@/data/services";
@@ -70,9 +69,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---- press, its own clean stage, prints in ---- */}
+      {/* ---- press, its own clean stage, prints in from the bottom feed ---- */}
       <section className="mx-auto max-w-6xl px-4 pb-24 pt-6 sm:px-6 sm:pb-28">
-        <PrintReveal as="figure" eager className="overflow-hidden rounded-2xl border border-ink/10">
+        <figure className="overflow-hidden rounded-2xl border border-ink/10">
           <Image
             src="/images/hero-press.jpg"
             alt="The Heidelberg Speedmaster SM-74 on a clean studio stage"
@@ -83,7 +82,7 @@ export default function Home() {
             quality={80}
             className="w-full"
           />
-        </PrintReveal>
+        </figure>
         <Reveal>
           <p className="mt-4 text-sm text-muted">
             The litho floor, anchored by a Heidelberg Speedmaster SM-74.
@@ -234,7 +233,7 @@ export default function Home() {
                 </div>
               </Reveal>
             </div>
-            <PrintReveal as="figure" className="overflow-hidden rounded-2xl border border-ink/10">
+            <figure className="overflow-hidden rounded-2xl border border-ink/10">
               <Image
                 src="/images/vehicle-hevoi.jpg"
                 alt="A sedan in a vivid full HEVOI FM wrap, photographed at golden hour"
@@ -243,7 +242,7 @@ export default function Home() {
                 sizes="(max-width: 1024px) 100vw, 60vw"
                 className="w-full"
               />
-            </PrintReveal>
+            </figure>
           </div>
 
           <ul className="mt-5 grid grid-cols-2 gap-5 sm:grid-cols-3">
@@ -252,7 +251,7 @@ export default function Home() {
               { src: "/images/vehicle-rav4.jpg", alt: "SUV with a two-tone green campaign wrap" },
               { src: "/images/bus-red.jpg", alt: "Intercity bus in a full-body advertising wrap" },
             ].map((img, i) => (
-              <PrintReveal as="figure" key={img.src} delay={i * 90} className={`lift overflow-hidden rounded-2xl border border-ink/10 ${i === 2 ? "hidden sm:block" : ""}`}>
+              <figure key={img.src} className={`lift overflow-hidden rounded-2xl border border-ink/10 ${i === 2 ? "hidden sm:block" : ""}`}>
                 <Image
                   src={img.src}
                   alt={img.alt}
@@ -261,7 +260,7 @@ export default function Home() {
                   sizes="(max-width: 640px) 50vw, 33vw"
                   className="aspect-[4/3] w-full object-cover"
                 />
-              </PrintReveal>
+              </figure>
             ))}
           </ul>
         </div>

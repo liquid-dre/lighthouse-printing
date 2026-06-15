@@ -1,13 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import PrintReveal from "@/components/PrintReveal";
 import type { Service } from "@/data/services";
 
 /**
  * Equal-height service card on the light theme: a white surface on paper
- * with a hairline and soft shadow. The image prints in (printer feed),
- * the description is line-clamped, and the footer row is pinned to the
- * bottom with mt-auto so every card aligns.
+ * with a hairline and soft shadow. The image is flat (a gentle hover
+ * scale only), the description is line-clamped, and the footer row is
+ * pinned to the bottom with mt-auto so every card aligns.
  */
 export default function ServiceCard({
   service,
@@ -21,16 +20,17 @@ export default function ServiceCard({
       href={`/services/${service.slug}`}
       className="lift group flex h-full flex-col overflow-hidden rounded-2xl border border-ink/10 bg-white shadow-[0_10px_40px_-24px_rgba(17,17,19,0.35)] hover:border-ink/25"
     >
-      <PrintReveal className="relative aspect-[16/10] overflow-hidden">
+      <div className="overflow-hidden">
         <Image
           src={service.hero.src}
           alt={service.hero.alt}
-          fill
+          width={1200}
+          height={750}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           preload={priorityImage}
-          className="object-cover transition-transform duration-700 ease-(--ease-out-strong) group-hover:scale-[1.03]"
+          className="aspect-[16/10] w-full object-cover transition-transform duration-700 ease-(--ease-out-strong) group-hover:scale-[1.03]"
         />
-      </PrintReveal>
+      </div>
       <div className="flex flex-1 flex-col px-6 pb-6 pt-6">
         <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-muted">
           {service.spec}
