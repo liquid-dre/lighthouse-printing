@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import PrintReveal from "@/components/PrintReveal";
 import type { Service } from "@/data/services";
 
 /**
- * Equal-height service card: the grid stretches every card, the
- * description is line-clamped, and the footer row is pinned to the
- * bottom with mt-auto so all five cards align.
+ * Equal-height service card on the light theme: a white surface on paper
+ * with a hairline and soft shadow. The image prints in (printer feed),
+ * the description is line-clamped, and the footer row is pinned to the
+ * bottom with mt-auto so every card aligns.
  */
 export default function ServiceCard({
   service,
@@ -17,33 +19,29 @@ export default function ServiceCard({
   return (
     <Link
       href={`/services/${service.slug}`}
-      className="lift group flex h-full flex-col rounded-2xl border border-white/8 bg-white/[0.03] p-1.5 hover:border-white/20"
+      className="lift group flex h-full flex-col overflow-hidden rounded-2xl border border-ink/10 bg-white shadow-[0_10px_40px_-24px_rgba(17,17,19,0.35)] hover:border-ink/25"
     >
-      <div className="relative aspect-[16/10] overflow-hidden rounded-[10px]">
+      <PrintReveal className="relative aspect-[16/10] overflow-hidden">
         <Image
           src={service.hero.src}
           alt={service.hero.alt}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           preload={priorityImage}
-          className="object-cover transition-transform duration-700 ease-(--ease-out-strong) group-hover:scale-[1.04]"
+          className="object-cover transition-transform duration-700 ease-(--ease-out-strong) group-hover:scale-[1.03]"
         />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"
-        />
-      </div>
-      <div className="flex flex-1 flex-col px-5 pb-5 pt-5">
-        <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-mist/80">
+      </PrintReveal>
+      <div className="flex flex-1 flex-col px-6 pb-6 pt-6">
+        <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-muted">
           {service.spec}
         </p>
-        <h3 className="font-display mt-2 text-xl font-bold tracking-tight text-paper">
+        <h3 className="font-display mt-2 text-xl font-bold tracking-tight text-ink">
           {service.name}
         </h3>
-        <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-mist">
+        <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">
           {service.summary}
         </p>
-        <span className="mt-auto flex items-center gap-2 pt-5 text-sm font-semibold text-paper transition-colors duration-200 group-hover:text-white">
+        <span className="mt-auto flex items-center gap-2 pt-6 text-sm font-semibold text-ink">
           Explore {service.shortName}
           <svg
             viewBox="0 0 16 16"

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Cta, { Eyebrow } from "@/components/Cta";
 import Reveal from "@/components/Reveal";
+import PrintReveal from "@/components/PrintReveal";
 import { services } from "@/data/services";
 import { site, wa, waQuote } from "@/lib/site";
 
@@ -45,12 +46,12 @@ export default function ServicesPage() {
           <Eyebrow>Services</Eyebrow>
         </Reveal>
         <Reveal delay={80}>
-          <h1 className="font-display mt-5 max-w-2xl text-4xl font-bold tracking-tight text-white sm:text-6xl/[1.03]">
+          <h1 className="font-display mt-6 max-w-4xl text-5xl font-extrabold tracking-tight text-ink sm:text-7xl/[0.95]">
             Everything a brand needs to be seen, printed under one roof.
           </h1>
         </Reveal>
         <Reveal delay={160}>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-mist sm:text-lg">
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
             Five specialist crafts that hand work to each other: artwork flows
             from the studio to the right press, and out to finishing, wrapping
             or installation without leaving the building.
@@ -62,7 +63,7 @@ export default function ServicesPage() {
               <a
                 key={s.slug}
                 href={`#${s.slug}`}
-                className="btn inline-flex min-h-11 items-center rounded-full border border-white/12 bg-white/[0.03] px-4 text-sm font-medium text-mist hover:border-white/35 hover:text-white"
+                className="btn inline-flex min-h-11 items-center rounded-full border border-ink/15 bg-white px-4 text-sm font-medium text-muted hover:border-ink/40 hover:text-ink"
               >
                 {s.name}
               </a>
@@ -71,7 +72,7 @@ export default function ServicesPage() {
         </Reveal>
       </section>
 
-      {/* ---- in-depth anchored sections ---- */}
+      {/* ---- in-depth anchored sections (case-study rhythm) ---- */}
       {services.map((s, i) => {
         const flip = i % 2 === 1;
         return (
@@ -79,7 +80,7 @@ export default function ServicesPage() {
             key={s.slug}
             id={s.slug}
             aria-labelledby={`${s.slug}-title`}
-            className={i % 2 === 1 ? "border-y border-white/8 bg-ink-deep" : ""}
+            className={i % 2 === 1 ? "border-y border-ink/10 bg-white" : ""}
           >
             <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
               <div
@@ -87,35 +88,40 @@ export default function ServicesPage() {
                   flip ? "lg:grid-cols-[1.1fr_1fr]" : "lg:grid-cols-[1fr_1.1fr]"
                 }`}
               >
-                <Reveal clip className={flip ? "lg:order-2" : ""}>
-                  <figure className="relative aspect-[16/11] overflow-hidden rounded-2xl">
-                    <Image
-                      src={s.hero.src}
-                      alt={s.hero.alt}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover"
-                    />
-                    <figcaption className="absolute bottom-3 left-3 rounded-full border border-white/15 bg-ink/70 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-paper backdrop-blur-sm">
-                      {s.spec}
-                    </figcaption>
-                  </figure>
-                </Reveal>
+                <PrintReveal
+                  as="figure"
+                  className={`relative overflow-hidden rounded-2xl border border-ink/10 ${flip ? "lg:order-2" : ""}`}
+                >
+                  <Image
+                    src={s.hero.src}
+                    alt={s.hero.alt}
+                    width={1600}
+                    height={1100}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="aspect-[16/11] w-full object-cover"
+                  />
+                  <figcaption className="absolute bottom-3 left-3 rounded-full border border-ink/10 bg-paper/90 px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.18em] text-ink backdrop-blur-sm">
+                    {s.spec}
+                  </figcaption>
+                </PrintReveal>
 
                 <div className={flip ? "lg:order-1" : ""}>
-                  <Reveal from={flip ? "left" : "right"}>
+                  <Reveal>
+                    <p className="font-display text-2xl font-extrabold tracking-tight text-signal">
+                      0{i + 1}
+                    </p>
                     <h2
                       id={`${s.slug}-title`}
-                      className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl"
+                      className="font-display mt-2 text-4xl font-extrabold tracking-tight text-ink sm:text-5xl"
                     >
                       {s.name}
                     </h2>
-                    <p className="mt-3 text-base font-medium text-paper">
+                    <p className="mt-3 text-lg font-medium text-ink">
                       {s.tagline}
                     </p>
                   </Reveal>
                   <Reveal delay={100}>
-                    <p className="mt-5 text-[15px] leading-relaxed text-mist">
+                    <p className="mt-5 text-[15px] leading-relaxed text-muted">
                       {s.description[0]}
                     </p>
                   </Reveal>
@@ -124,9 +130,9 @@ export default function ServicesPage() {
                       {s.capabilities.map((c) => (
                         <li
                           key={c}
-                          className="flex items-start gap-2.5 text-sm leading-snug text-paper/85"
+                          className="flex items-start gap-2.5 text-sm leading-snug text-ink/85"
                         >
-                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-beam">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-signal-deep">
                             <path d="m2.5 8.5 3.5 3.5 7.5-8" />
                           </svg>
                           {c}
@@ -139,7 +145,7 @@ export default function ServicesPage() {
                       <Cta href={waQuote(s.name)}>Request a quote</Cta>
                       <Link
                         href={`/services/${s.slug}`}
-                        className="group inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-paper hover:text-white"
+                        className="group inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ink transition-colors duration-200 hover:text-signal-deep"
                       >
                         See the work
                         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-300 ease-(--ease-out-strong) group-hover:translate-x-1">
@@ -156,10 +162,7 @@ export default function ServicesPage() {
       })}
 
       {/* ---- how it works (real workflow) + closing ---- */}
-      <section
-        aria-labelledby="how-it-works"
-        className="border-t border-white/8 bg-ink-deep"
-      >
+      <section aria-labelledby="how-it-works" className="border-t border-ink/10">
         <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
           <Reveal>
             <Eyebrow>How it works</Eyebrow>
@@ -167,7 +170,7 @@ export default function ServicesPage() {
           <Reveal delay={80}>
             <h2
               id="how-it-works"
-              className="font-display mt-4 max-w-2xl text-3xl font-bold tracking-tight text-white sm:text-5xl/[1.02]"
+              className="font-display mt-4 max-w-2xl text-4xl font-extrabold tracking-tight text-ink sm:text-6xl/[0.95]"
             >
               From your brief to off the press.
             </h2>
@@ -175,37 +178,43 @@ export default function ServicesPage() {
           <ol className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((s, i) => (
               <Reveal as="li" key={s.n} delay={i * 80}>
-                <p className="font-display text-2xl font-bold tracking-tight text-mist/45">
+                <p className="font-display text-3xl font-extrabold tracking-tight text-signal">
                   {s.n}
                 </p>
-                <h3 className="font-display mt-3 text-lg font-bold tracking-tight text-paper">
+                <h3 className="font-display mt-4 border-t border-ink/15 pt-4 text-lg font-bold tracking-tight text-ink">
                   {s.title}
                 </h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-mist">
+                <p className="mt-2.5 text-sm leading-relaxed text-muted">
                   {s.body}
                 </p>
               </Reveal>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* ---- red colour-block closing ---- */}
+      <section className="on-ink bg-signal">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-24 text-center sm:px-6 sm:py-28">
+          <Reveal>
+            <h2 className="font-display max-w-2xl text-4xl font-extrabold tracking-tight text-white sm:text-6xl/[0.95]">
+              Tell us what you need printed.
+            </h2>
+          </Reveal>
           <Reveal delay={120}>
-            <div className="mt-16 flex flex-col items-center gap-4 border-t border-white/8 pt-12 text-center">
-              <h2 className="font-display max-w-xl text-2xl font-bold tracking-tight text-white sm:text-3xl">
-                Tell us what you need printed.
-              </h2>
-              <div className="mt-2 flex flex-col items-center gap-4">
-                <Cta href={wa("Hi Lighthouse Print, I'd like a quote.")}>
-                  Get a quote on WhatsApp
-                </Cta>
-                <p className="text-sm text-paper/70">
-                  Prefer to talk?{" "}
-                  <a
-                    href={`tel:${site.phones[0].tel}`}
-                    className="font-medium text-paper underline-offset-4 hover:underline"
-                  >
-                    Call {site.phones[0].label}
-                  </a>
-                </p>
-              </div>
+            <div className="mt-4 flex flex-col items-center gap-4">
+              <Cta href={wa("Hi Lighthouse Print, I'd like a quote.")} variant="ink">
+                Get a quote on WhatsApp
+              </Cta>
+              <p className="text-sm text-white">
+                Prefer to talk?{" "}
+                <a
+                  href={`tel:${site.phones[0].tel}`}
+                  className="font-semibold text-white underline-offset-4 hover:underline"
+                >
+                  Call {site.phones[0].label}
+                </a>
+              </p>
             </div>
           </Reveal>
         </div>

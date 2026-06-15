@@ -20,40 +20,48 @@ function ArrowGlyph({ className = "h-3.5 w-3.5" }: { className?: string }) {
 type CtaProps = {
   href: string;
   children: ReactNode;
-  /** Visual weight. Primary = brand red, ghost = hairline outline. */
-  variant?: "primary" | "ghost" | "paper";
+  /** primary = red fill; ink = black fill; ghost = hairline outline. */
+  variant?: "primary" | "ink" | "ghost";
+  /** Set when placed on a dark (ink/red) colour-block, so ghost flips light. */
+  onDark?: boolean;
   external?: boolean;
   className?: string;
 };
 
 /**
- * Pill CTA with the nested trailing icon. WhatsApp links get the
- * WhatsApp glyph in the orb; internal links get an arrow.
+ * Pill CTA with a nested trailing icon. WhatsApp links get the WhatsApp
+ * glyph in the orb; everything else gets an arrow.
  */
 export default function Cta({
   href,
   children,
   variant = "primary",
+  onDark = false,
   external,
   className = "",
 }: CtaProps) {
   const isWhatsApp = href.startsWith("https://wa.me");
-  const isExternal = external ?? (isWhatsApp || href.startsWith("http") || href.startsWith("tel:"));
+  const isExternal =
+    external ?? (isWhatsApp || href.startsWith("http") || href.startsWith("tel:"));
 
   const base =
     "btn group inline-flex min-h-12 items-center gap-3 rounded-full pl-6 pr-2 py-2 text-sm font-semibold tracking-wide";
+
   const look =
     variant === "primary"
       ? "bg-signal text-white hover:bg-signal-deep"
-      : variant === "paper"
-        ? "border border-ink/15 bg-white/60 text-ink hover:border-ink/40"
-        : "border border-white/15 bg-white/[0.03] text-paper hover:border-white/40";
+      : variant === "ink"
+        ? "bg-ink text-paper hover:bg-ink-soft"
+        : onDark
+          ? "border border-white/30 text-paper hover:border-white/70"
+          : "border border-ink/20 text-ink hover:border-ink/60";
+
   const orbLook =
-    variant === "primary"
-      ? "bg-white/15 text-white"
-      : variant === "paper"
-        ? "bg-ink/8 text-ink"
-        : "bg-white/10 text-paper";
+    variant === "primary" || variant === "ink"
+      ? "bg-white/15 text-current"
+      : onDark
+        ? "bg-white/10 text-paper"
+        : "bg-ink/8 text-ink";
 
   const inner = (
     <>
@@ -90,15 +98,16 @@ export default function Cta({
 
 export function Eyebrow({
   children,
-  tone = "ink",
+  tone = "light",
 }: {
   children: ReactNode;
-  tone?: "ink" | "paper";
+  /** light = on paper (muted); dark = on ink/red block (paper). */
+  tone?: "light" | "dark";
 }) {
   return (
     <span
       className={`block text-[11px] font-medium uppercase tracking-[0.3em] ${
-        tone === "ink" ? "text-mist/80" : "text-slate"
+        tone === "light" ? "text-muted" : "text-paper/75"
       }`}
     >
       {children}

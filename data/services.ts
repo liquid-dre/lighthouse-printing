@@ -40,7 +40,7 @@ export const services: Service[] = [
       "Labels, magazines & catalogues",
       "In-house guillotining, folding & finishing",
     ],
-    hero: { src: "/images/hero-press.jpg", alt: "Heidelberg Speedmaster offset press under a warm sweep of light" },
+    hero: { src: "/images/hero-press.jpg", alt: "The Heidelberg Speedmaster SM-74 offset press on a clean studio stage" },
     gallery: [
       { src: "/images/litho-books.jpg", alt: "Perfect-bound books printed and finished by Lighthouse Print" },
       { src: "/images/litho-natfoods.jpg", alt: "National Foods corporate brochure spread with rich colour blocks" },

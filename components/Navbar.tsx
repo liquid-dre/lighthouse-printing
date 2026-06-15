@@ -72,7 +72,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <div className="mx-4 mt-4 flex max-w-6xl items-center justify-between gap-3 rounded-full border border-white/10 bg-ink/75 py-2 pl-5 pr-2 backdrop-blur-xl sm:mx-6 lg:mx-auto">
+      <div className="mx-4 mt-4 flex max-w-6xl items-center justify-between gap-3 rounded-full border border-ink/10 bg-paper/80 py-2 pl-5 pr-2 shadow-[0_8px_30px_-12px_rgba(17,17,19,0.18)] backdrop-blur-xl sm:mx-6 lg:mx-auto">
         <Link
           href="/"
           className="flex min-h-11 items-center gap-2.5"
@@ -86,8 +86,8 @@ export default function Navbar() {
             height={348}
             className="h-7 w-auto"
           />
-          <span className="font-display text-[17px] font-bold tracking-tight text-paper">
-            Lighthouse<span className="text-signal-tint"> Print</span>
+          <span className="font-display text-[17px] font-bold tracking-tight text-ink">
+            Lighthouse Print
           </span>
         </Link>
 
@@ -102,8 +102,8 @@ export default function Navbar() {
                 aria-current={active ? "page" : undefined}
                 className={`btn inline-flex min-h-11 items-center rounded-full px-4 text-sm font-medium ${
                   active
-                    ? "bg-white/10 text-white"
-                    : "text-mist hover:bg-white/5 hover:text-white"
+                    ? "bg-ink/8 text-ink"
+                    : "text-muted hover:bg-ink/5 hover:text-ink"
                 }`}
               >
                 {l.label}
@@ -129,18 +129,18 @@ export default function Navbar() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="btn relative flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 md:hidden"
+            className="btn relative flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 bg-ink/5 md:hidden"
           >
             <span
               aria-hidden="true"
-              className={`absolute h-px w-4.5 bg-paper transition-transform duration-300 ease-(--ease-swing) ${
-                open ? "rotate-45" : "-translate-y-[3.5px]"
+              className={`absolute h-px w-4.5 transition-transform duration-300 ease-(--ease-swing) ${
+                open ? "rotate-45 bg-paper" : "-translate-y-[3.5px] bg-ink"
               }`}
             />
             <span
               aria-hidden="true"
-              className={`absolute h-px w-4.5 bg-paper transition-transform duration-300 ease-(--ease-swing) ${
-                open ? "-rotate-45" : "translate-y-[3.5px]"
+              className={`absolute h-px w-4.5 transition-transform duration-300 ease-(--ease-swing) ${
+                open ? "-rotate-45 bg-paper" : "translate-y-[3.5px] bg-ink"
               }`}
             />
           </button>
@@ -154,7 +154,7 @@ export default function Navbar() {
         role="dialog"
         aria-modal="true"
         aria-label="Site menu"
-        className={`fixed inset-0 -z-10 bg-ink-deep transition-opacity duration-[400ms] ease-(--ease-swing) md:hidden ${
+        className={`on-ink fixed inset-0 -z-10 bg-ink transition-opacity duration-[400ms] ease-(--ease-swing) md:hidden ${
           open ? "menu-open opacity-100" : "pointer-events-none opacity-0"
         }`}
       >

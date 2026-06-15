@@ -1,14 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Schibsted_Grotesk } from "next/font/google";
+import { Bricolage_Grotesque, Schibsted_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BeamLoader from "@/components/BeamLoader";
 import { site } from "@/lib/site";
 
-// One lean variable family. Schibsted Grotesk is a sharp editorial
-// grotesque: tight and confident at display sizes, even and legible as
-// body. A single font set keeps mobile-data payloads minimal.
+// Editorial pairing on a contrast axis: Bricolage Grotesque (characterful,
+// ink-trapped) carries the oversized display headings; Schibsted Grotesk
+// (neutral, even) carries body and UI. Two lean variable fonts, latin only.
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 const schibsted = Schibsted_Grotesk({
   variable: "--font-schibsted",
   subsets: ["latin"],
@@ -33,7 +39,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0d16",
+  themeColor: "#f7f5f2",
   width: "device-width",
   initialScale: 1,
 };
@@ -44,11 +50,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${schibsted.variable} h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${bricolage.variable} ${schibsted.variable} h-full antialiased`}
+    >
       <body className="flex min-h-full flex-col">
         <a
           href="#main"
-          className="skip-link rounded-full bg-beam px-5 py-3 text-sm font-semibold text-ink"
+          className="skip-link rounded-full bg-ink px-5 py-3 text-sm font-semibold text-paper"
         >
           Skip to content
         </a>

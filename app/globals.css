@@ -1,26 +1,26 @@
 @import "tailwindcss";
 
 @theme {
-  /* Palette extracted from /public/brand/logo.png (brand red #E01C24) and
-     tuned for WCAG AA on their respective surfaces. */
-  --color-ink: #0b0d16;
-  --color-ink-deep: #07090f;
-  --color-ink-soft: #131726;
-  --color-signal: #e01c24; /* extracted brand red, 4.82:1 with white text */
-  --color-signal-deep: #b5121a; /* hover / pressed, 6.85:1 with white */
-  --color-signal-tint: #ff5c63; /* red as text on ink, 6.43:1 */
-  --color-beam: #ffc24b; /* lamp gold, 11.98:1 on ink */
-  --color-paper: #f7f5f0;
-  --color-paper-soft: #edeae2;
-  --color-slate: #4a5568; /* muted text on paper, 6.91:1 */
-  --color-mist: #a8b0c2; /* muted text on ink, 8.91:1 */
+  /* Print-native light palette. Brand red #E01C24 extracted from
+     /public/brand/logo.png. WCAG AA verified: ink/muted carry body on
+     paper; red is reserved for fills, large display and CTAs (red text
+     small on paper fails, so signal-deep is used for small red text). */
+  --color-paper: #f7f5f2; /* warm paper-white — primary background */
+  --color-white: #ffffff; /* clean white — elevated surfaces */
+  --color-ink: #111113; /* near-black ink — 17.3:1 on paper */
+  --color-ink-soft: #1c1c20; /* lifted ink for dark colour-blocks */
+  --color-signal: #e01c24; /* brand red — fills/CTAs, white text 4.82:1 */
+  --color-signal-deep: #b5121a; /* small red text on paper — 6.29:1 */
+  --color-muted: #5e5e62; /* secondary text on paper — 5.93:1 */
+  --color-line: #11111322; /* hairline on paper */
+  --color-beam: #ffc24b; /* lamp gold — LOADER ONLY */
 
-  --font-display: var(--font-schibsted);
+  --font-display: var(--font-bricolage);
   --font-sans: var(--font-schibsted);
 
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-swing: cubic-bezier(0.32, 0.72, 0, 1);
-  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 
   --animate-marquee: marquee 42s linear infinite;
 
@@ -45,17 +45,14 @@ html {
 }
 
 body {
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--color-paper);
+  color: var(--color-ink);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* Clip transient horizontal overflow from entrance transforms and the
-     hero parallax scale without creating a scroll container. */
   overflow-x: clip;
 }
 
-/* Optically set large type: balanced heading lines, no body orphans */
 h1,
 h2,
 h3 {
@@ -66,8 +63,6 @@ p {
   text-wrap: pretty;
 }
 
-/* Display headings carry a touch of negative tracking by default; the
-   per-element Tailwind tracking utilities refine from here. */
 .font-display {
   letter-spacing: -0.02em;
 }
@@ -82,38 +77,102 @@ p {
   color: #fff;
 }
 
-/* Visible focus for keyboard users, on both ink and paper surfaces */
+/* Focus: ink ring on light surfaces, paper ring on dark colour-blocks */
 :focus-visible {
-  outline: 2px solid var(--color-beam);
+  outline: 2px solid var(--color-ink);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
-.on-paper :focus-visible {
-  outline-color: var(--color-signal-deep);
+.on-ink :focus-visible {
+  outline-color: var(--color-paper);
 }
 
-/* ---------- Scroll reveal (driven by components/Reveal.tsx) ----------
-   Hidden states are gated behind `scripting: enabled` so content stays
-   visible when JS is unavailable (no-JS, crawlers, paused transitions). */
+/* ---------- "Printer Feed" — the signature reveal ----------
+   Media prints in top→bottom via clip-path; a thin red print-head line
+   travels with the reveal front. GPU-only (clip-path/transform/opacity).
+   Driven by components/PrintReveal.tsx (adds .is-printed once on enter). */
+.print-reveal {
+  position: relative;
+}
+
+@media (scripting: enabled) {
+  .print-reveal > * {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .print-reveal > * {
+    transition:
+      clip-path 0.7s var(--ease-out-quint),
+      transform 0.7s var(--ease-out-quint);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: clip-path;
+  }
+  .print-reveal.is-printed > * {
+    clip-path: inset(0 0 0 0);
+    animation: print-settle 0.7s var(--ease-out-quint);
+    animation-delay: var(--reveal-delay, 0ms);
+  }
+  /* leading edge: a print-head line that feeds downward, then fades */
+  .print-reveal::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background: var(--color-signal);
+    opacity: 0;
+    transform: translateY(0);
+    pointer-events: none;
+    z-index: 2;
+  }
+  .print-reveal.is-printed::after {
+    animation: print-head 0.7s var(--ease-out-quint) forwards;
+    animation-delay: var(--reveal-delay, 0ms);
+  }
+}
+
+@keyframes print-head {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  82% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(var(--feed, 360px));
+  }
+}
+
+@keyframes print-settle {
+  0% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* No-JS / reduced-motion: show media instantly, no clip */
+@media (scripting: enabled) and (prefers-reduced-motion: reduce) {
+  .print-reveal > * {
+    clip-path: inset(0 0 0 0);
+    transition: opacity 0.3s ease;
+  }
+  .print-reveal::after {
+    display: none;
+  }
+}
+
+/* ---------- Text reveal (fade-up) for copy blocks ---------- */
 @media (scripting: enabled) {
   .reveal {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(24px);
     will-change: transform, opacity;
-  }
-
-  /* Horizontal entrances only where there's a two-column layout to
-     justify them; on smaller screens they'd push full-width blocks
-     off-canvas, so they fall back to the vertical reveal. */
-  @media (min-width: 1024px) {
-    .reveal.from-left {
-      transform: translateX(-32px);
-    }
-
-    .reveal.from-right {
-      transform: translateX(32px);
-    }
   }
 }
 
@@ -126,78 +185,13 @@ p {
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translate(0, 0);
+  transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     transform: none;
-    filter: none;
     transition: opacity 0.25s ease;
-  }
-}
-
-/* Cinematic clip reveal for showcase imagery */
-@media (scripting: enabled) {
-  .clip-reveal {
-    clip-path: inset(12% 6% 12% 6% round 16px);
-    will-change: clip-path;
-  }
-}
-
-.clip-reveal {
-  transition: clip-path 1.2s var(--ease-swing);
-}
-
-.clip-reveal.is-visible {
-  clip-path: inset(0 0 0 0 round 16px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .clip-reveal {
-    clip-path: inset(0 0 0 0 round 16px);
-    transition: none;
-  }
-}
-
-/* ---------- Signature scroll moment: hero press parallax ----------
-   Scroll-scrubbed drift + scale on the hero image, GPU transform only.
-   Progressive enhancement: runs only where scroll-driven timelines are
-   supported and motion is allowed; every other browser stays static. */
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: scroll()) {
-    .hero-parallax {
-      animation: hero-parallax linear both;
-      animation-timeline: scroll(root block);
-      animation-range: 0 100vh;
-      will-change: transform;
-    }
-    .hero-copy-rise {
-      animation: hero-copy-rise linear both;
-      animation-timeline: scroll(root block);
-      animation-range: 0 70vh;
-      will-change: transform, opacity;
-    }
-  }
-}
-
-@keyframes hero-parallax {
-  from {
-    transform: scale(1.05) translateY(0);
-  }
-  to {
-    transform: scale(1.14) translateY(3.5%);
-  }
-}
-
-@keyframes hero-copy-rise {
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-14%);
-    opacity: 0.55;
   }
 }
 
@@ -211,7 +205,7 @@ p {
   }
 }
 
-/* ---------- "The Beam" loader ---------- */
+/* ---------- "The Beam" loader (opens on a flat brand-red field) ---------- */
 @property --beam-angle {
   syntax: "<angle>";
   inherits: false;
@@ -222,31 +216,19 @@ p {
   position: fixed;
   inset: 0;
   z-index: 80;
-  background: var(--color-ink-deep);
+  background: var(--color-signal);
   display: grid;
   place-items: center;
 }
 
+/* EXIT: the loader feeds away top→bottom, printing the homepage in */
 .beam-loader.is-exiting {
-  animation: beam-wipe 0.9s var(--ease-swing) forwards;
-  mask-image: conic-gradient(
-    from 0deg at 50% 38%,
-    transparent var(--beam-angle),
-    black calc(var(--beam-angle) + 28deg)
-  );
-  -webkit-mask-image: conic-gradient(
-    from 0deg at 50% 38%,
-    transparent var(--beam-angle),
-    black calc(var(--beam-angle) + 28deg)
-  );
+  animation: loader-feed 0.85s var(--ease-out-quint) forwards;
 }
 
-@keyframes beam-wipe {
-  from {
-    --beam-angle: 0deg;
-  }
+@keyframes loader-feed {
   to {
-    --beam-angle: 360deg;
+    clip-path: inset(0 0 100% 0);
   }
 }
 
@@ -255,7 +237,6 @@ p {
   opacity: 0;
 }
 
-/* Stroke draw-in for loader motifs */
 .beam-loader .motif {
   stroke-dasharray: var(--len, 240);
   stroke-dashoffset: var(--len, 240);
@@ -283,8 +264,7 @@ p {
 
 .beam-loader .lamp-glow {
   opacity: 0;
-  animation: lamp-on 0.45s var(--ease-out-strong) forwards;
-  animation-delay: 1.95s;
+  animation: lamp-on 0.45s var(--ease-out-strong) 1.95s forwards;
 }
 
 @keyframes lamp-on {
@@ -337,8 +317,6 @@ p {
   }
   .beam-loader.is-exiting {
     animation: none;
-    mask-image: none;
-    -webkit-mask-image: none;
     transition: opacity 0.35s ease;
     opacity: 0;
   }
@@ -372,7 +350,7 @@ p {
   transition:
     transform 0.5s var(--ease-out-strong),
     border-color 0.3s var(--ease-out-strong),
-    background-color 0.3s var(--ease-out-strong);
+    box-shadow 0.4s var(--ease-out-strong);
 }
 
 @media (hover: hover) and (pointer: fine) {

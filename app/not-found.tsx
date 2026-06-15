@@ -6,13 +6,13 @@ export default function NotFound() {
   return (
     <section className="relative flex min-h-[100svh] items-center overflow-hidden">
       <div className="relative mx-auto w-full max-w-6xl px-4 py-40 sm:px-6">
-        <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-mist/80">
+        <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-muted">
           404, page not found
         </p>
-        <h1 className="font-display mt-5 max-w-2xl text-4xl font-bold tracking-tight text-white sm:text-6xl/[1.03]">
-          This page slipped past the beam.
+        <h1 className="font-display mt-5 max-w-3xl text-5xl font-extrabold tracking-tight text-ink sm:text-7xl/[0.95]">
+          This page slipped past the <span className="text-signal">beam.</span>
         </h1>
-        <p className="mt-6 max-w-xl text-base leading-relaxed text-mist sm:text-lg">
+        <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
           The address doesn&rsquo;t match anything we print. The lighthouse
           still knows the way back.
         </p>
@@ -24,7 +24,7 @@ export default function NotFound() {
         </div>
         <Link
           href="/"
-          className="mt-8 inline-flex min-h-11 items-center text-sm font-semibold text-signal-tint"
+          className="mt-8 inline-flex min-h-11 items-center text-sm font-semibold text-ink underline-offset-4 hover:underline"
         >
           Back to the homepage
         </Link>
