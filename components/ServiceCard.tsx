@@ -34,7 +34,7 @@ export default function ServiceCard({
         />
       </div>
       <div className="flex flex-1 flex-col px-5 pb-5 pt-5">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-beam">
+        <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-mist/80">
           {service.spec}
         </p>
         <h3 className="font-display mt-2 text-xl font-bold tracking-tight text-paper">
@@ -43,7 +43,7 @@ export default function ServiceCard({
         <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-mist">
           {service.summary}
         </p>
-        <span className="mt-auto flex items-center gap-2 pt-5 text-sm font-semibold text-signal-tint">
+        <span className="mt-auto flex items-center gap-2 pt-5 text-sm font-semibold text-paper transition-colors duration-200 group-hover:text-white">
           Explore {service.shortName}
           <svg
             viewBox="0 0 16 16"

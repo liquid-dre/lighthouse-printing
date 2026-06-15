@@ -97,10 +97,8 @@ export function Eyebrow({
 }) {
   return (
     <span
-      className={`inline-flex items-center rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] ${
-        tone === "ink"
-          ? "border border-white/10 bg-ink/60 text-beam"
-          : "border border-ink/10 bg-ink/[0.03] text-signal-deep"
+      className={`block text-[11px] font-medium uppercase tracking-[0.3em] ${
+        tone === "ink" ? "text-mist/80" : "text-slate"
       }`}
     >
       {children}

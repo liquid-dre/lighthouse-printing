@@ -5,12 +5,8 @@ import { wa } from "@/lib/site";
 export default function NotFound() {
   return (
     <section className="relative flex min-h-[100svh] items-center overflow-hidden">
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(60%_70%_at_50%_-10%,rgba(255,194,75,0.12),transparent_70%)]"
-      />
       <div className="relative mx-auto w-full max-w-6xl px-4 py-40 sm:px-6">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-beam">
+        <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-mist/80">
           404, page not found
         </p>
         <h1 className="font-display mt-5 max-w-2xl text-4xl font-bold tracking-tight text-white sm:text-6xl/[1.03]">

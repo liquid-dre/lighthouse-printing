@@ -58,7 +58,7 @@ export default function Footer() {
           </div>
 
           <nav aria-label="Services">
-            <h2 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-beam">
+            <h2 className="text-[11px] font-medium uppercase tracking-[0.3em] text-mist/80">
               Services
             </h2>
             <ul className="mt-3">
@@ -76,7 +76,7 @@ export default function Footer() {
           </nav>
 
           <nav aria-label="Lighthouse Group">
-            <h2 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-beam">
+            <h2 className="text-[11px] font-medium uppercase tracking-[0.3em] text-mist/80">
               The Group
             </h2>
             <ul className="mt-3">
@@ -104,7 +104,7 @@ export default function Footer() {
           </nav>
 
           <div>
-            <h2 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-beam">
+            <h2 className="text-[11px] font-medium uppercase tracking-[0.3em] text-mist/80">
               Head office
             </h2>
             <a

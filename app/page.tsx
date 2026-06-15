@@ -5,7 +5,7 @@ import Reveal from "@/components/Reveal";
 import ServiceCard from "@/components/ServiceCard";
 import ClientsMarquee from "@/components/ClientsMarquee";
 import { services } from "@/data/services";
-import { wa, waQuote } from "@/lib/site";
+import { site, wa, waQuote } from "@/lib/site";
 
 const trustClaims = [
   "Over a decade of excellence",
@@ -19,9 +19,7 @@ const whyLighthouse = [
   {
     title: "One-stop capacity",
     body: "Design, litho, digital, vehicle and wide-format under one roof. One brief, one accountable team, one consistent result.",
-    glyph: (
-      <path d="M12 3 4 7v10l8 4 8-4V7l-8-4Zm0 0v18M4 7l8 4 8-4" />
-    ),
+    glyph: <path d="M12 3 4 7v10l8 4 8-4V7l-8-4Zm0 0v18M4 7l8 4 8-4" />,
   },
   {
     title: "Heidelberg litho power",
@@ -57,42 +55,43 @@ export default function Home() {
   return (
     <>
       {/* ================= HERO ================= */}
-      <section className="relative flex min-h-[100svh] items-end overflow-hidden">
-        <Image
-          src="/images/hero-press.jpg"
-          alt="Heidelberg Speedmaster press in a dark print hall, lit by a warm sweeping beam"
-          fill
-          preload
-          sizes="100vw"
-          quality={80}
-          className="object-cover object-[62%_center]"
+      <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src="/images/hero-press.jpg"
+            alt="The Heidelberg Speedmaster press on a dark studio stage, raked by warm light"
+            fill
+            preload
+            sizes="100vw"
+            quality={80}
+            className="hero-parallax object-cover object-[60%_center]"
+          />
+        </div>
+        {/* one calm scrim, anchored bottom-left where the copy sits */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/60 to-ink/20"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/25"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/20 to-transparent"
+          className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/70 via-transparent to-transparent"
         />
 
-        <div className="relative mx-auto w-full max-w-6xl px-4 pb-20 pt-40 sm:px-6 sm:pb-28">
+        <div className="hero-copy-rise mx-auto w-full max-w-6xl px-4 pb-24 pt-44 sm:px-6 sm:pb-32">
           <Reveal>
-            <Eyebrow>Harare, est. 2010</Eyebrow>
-          </Reveal>
-          <Reveal delay={80}>
-            <h1 className="font-display mt-6 max-w-3xl text-[2.7rem]/[1.04] font-bold tracking-tight text-white sm:text-6xl/[1.03] lg:text-7xl/[1.02]">
-              Zimbabwe&rsquo;s print production{" "}
-              <span className="text-beam">powerhouse.</span>
+            <h1 className="font-display max-w-3xl text-[2.9rem]/[0.98] font-bold tracking-tight text-white sm:text-7xl/[0.96] lg:text-[5.5rem]/[0.95]">
+              Zimbabwe&rsquo;s print
+              <br />
+              production powerhouse.
             </h1>
           </Reveal>
-          <Reveal delay={160}>
-            <p className="mt-6 max-w-xl text-base/relaxed text-paper/85 sm:text-lg/relaxed">
-              Litho, digital, design studio, vehicle branding and wide-format
-              print from Harare, with over a decade of service excellence.
+          <Reveal delay={120}>
+            <p className="mt-7 max-w-md text-base/relaxed text-paper/80 sm:text-lg/relaxed">
+              Litho, digital, design, vehicle branding and wide-format,
+              under one roof in Harare.
             </p>
           </Reveal>
-          <Reveal delay={240}>
+          <Reveal delay={220}>
             <div className="mt-9 flex flex-wrap items-center gap-4">
               <Cta href={wa("Hi Lighthouse Print, I'd like a quote.")}>
                 Get a quote on WhatsApp
@@ -105,11 +104,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= TRUST STRIP ================= */}
-      <section aria-label="Why clients trust Lighthouse Print" className="border-y border-white/8 bg-ink-deep">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+      {/* ================= TRUST STRIP + CLIENTS ================= */}
+      <section
+        aria-label="Why clients trust Lighthouse Print"
+        className="border-y border-white/8 bg-ink-deep"
+      >
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <Reveal>
-            <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+            <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3.5">
               {trustClaims.map((claim) => (
                 <li
                   key={claim}
@@ -121,11 +123,11 @@ export default function Home() {
             </ul>
           </Reveal>
           <Reveal delay={120}>
-            <div className="mt-12">
-              <p className="text-center text-[11px] font-semibold uppercase tracking-[0.24em] text-mist/80">
+            <div className="mt-14">
+              <p className="text-center text-[11px] font-medium uppercase tracking-[0.3em] text-mist/70">
                 A big thank you to our clients
               </p>
-              <div className="mt-7">
+              <div className="mt-8">
                 <ClientsMarquee />
               </div>
             </div>
@@ -134,17 +136,17 @@ export default function Home() {
       </section>
 
       {/* ================= SERVICES HIGHLIGHTS ================= */}
-      <section id="services" className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
+      <section id="services" className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <Reveal>
-            <h2 className="font-display max-w-md text-3xl font-bold tracking-tight text-white sm:text-5xl/[1.05]">
+            <h2 className="font-display max-w-md text-3xl font-bold tracking-tight text-white sm:text-5xl/[1.02]">
               Five crafts. One roof.
             </h2>
           </Reveal>
           <Reveal delay={100}>
             <Link
               href="/services"
-              className="group inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-signal-tint"
+              className="group inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-paper transition-colors duration-200 hover:text-white"
             >
               See all services in depth
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-300 ease-(--ease-out-strong) group-hover:translate-x-1">
@@ -154,22 +156,22 @@ export default function Home() {
           </Reveal>
         </div>
 
-        <ul className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (
-            <Reveal as="li" key={s.slug} delay={i * 70} className="h-full">
-              <ServiceCard service={s} />
+            <Reveal as="li" key={s.slug} delay={i * 60} className="h-full">
+              <ServiceCard service={s} priorityImage={i === 0} />
             </Reveal>
           ))}
           {/* CTA tile completes the 2x3 grid so card heights stay equal */}
-          <Reveal as="li" delay={350} className="h-full">
-            <div className="flex h-full flex-col justify-between rounded-2xl border border-signal/30 bg-gradient-to-br from-signal/15 to-transparent p-7">
+          <Reveal as="li" delay={300} className="h-full">
+            <div className="flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.03] p-7">
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-beam">
+                <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-mist/80">
                   Not sure where to start?
                 </p>
                 <h3 className="font-display mt-3 text-2xl font-bold tracking-tight text-white">
-                  Tell us about the job and we&rsquo;ll route it to the
-                  right press.
+                  Tell us about the job and we&rsquo;ll route it to the right
+                  press.
                 </h3>
               </div>
               <div className="pt-8">
@@ -184,9 +186,9 @@ export default function Home() {
 
       {/* ================= WHY LIGHTHOUSE ================= */}
       <section className="on-paper bg-paper text-ink">
-        <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
+        <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
           <Reveal>
-            <h2 className="font-display max-w-2xl text-3xl font-bold tracking-tight sm:text-5xl/[1.05]">
+            <h2 className="font-display max-w-2xl text-3xl font-bold tracking-tight sm:text-5xl/[1.02]">
               The capacity of a production house, the care of a studio.
             </h2>
           </Reveal>
@@ -211,7 +213,7 @@ export default function Home() {
       </section>
 
       {/* ================= VEHICLE WRAP SHOWCASE ================= */}
-      <section className="relative overflow-hidden py-24 sm:py-32">
+      <section className="overflow-hidden py-24 sm:py-28">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid items-end gap-10 lg:grid-cols-[1fr_1.5fr]">
             <div>
@@ -219,9 +221,8 @@ export default function Home() {
                 <Eyebrow>We lead with wraps</Eyebrow>
               </Reveal>
               <Reveal delay={80}>
-                <h2 className="font-display mt-5 text-3xl font-bold tracking-tight text-white sm:text-5xl/[1.05]">
-                  Every vehicle is a<br />
-                  <span className="text-signal-tint">moving billboard.</span>
+                <h2 className="font-display mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl/[1.02]">
+                  Every vehicle is a moving billboard.
                 </h2>
               </Reveal>
               <Reveal delay={160}>
@@ -233,17 +234,15 @@ export default function Home() {
               </Reveal>
               <Reveal delay={240}>
                 <div className="mt-8">
-                  <Cta href={waQuote("Vehicle Branding")}>
-                    Quote my vehicle
-                  </Cta>
+                  <Cta href={waQuote("Vehicle Branding")}>Quote my vehicle</Cta>
                 </div>
               </Reveal>
             </div>
             <Reveal clip>
-              <figure className="relative aspect-[16/9] overflow-hidden rounded-2xl">
+              <figure className="relative aspect-[16/10] overflow-hidden rounded-2xl">
                 <Image
-                  src="/images/fleet-collateral.jpg"
-                  alt="Lighthouse-branded fleet lineup: wrapped vans, a coach bus, gazebo, flags and banners under stadium lights"
+                  src="/images/vehicle-hevoi.jpg"
+                  alt="A sedan in a vivid full HEVOI FM wrap, photographed at golden hour"
                   fill
                   sizes="(max-width: 1024px) 100vw, 60vw"
                   className="object-cover"
@@ -252,11 +251,11 @@ export default function Home() {
             </Reveal>
           </div>
 
-          <ul className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-3">
+          <ul className="mt-5 grid grid-cols-2 gap-5 sm:grid-cols-3">
             {[
-              { src: "/images/vehicle-hevoi.jpg", alt: "Sedan in a vivid orange HEVOI FM full wrap" },
               { src: "/images/bus-fifa.jpg", alt: "Coach bus in a full green tournament livery" },
               { src: "/images/vehicle-rav4.jpg", alt: "SUV with a two-tone green campaign wrap" },
+              { src: "/images/bus-red.jpg", alt: "Intercity bus in a full-body advertising wrap" },
             ].map((img, i) => (
               <Reveal as="li" key={img.src} delay={i * 90} className={i === 2 ? "hidden sm:block" : ""}>
                 <figure className="lift relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/8">
@@ -274,29 +273,42 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= CLOSING CTA ================= */}
-      <section className="relative overflow-hidden border-t border-white/8">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-[radial-gradient(70%_90%_at_50%_110%,rgba(224,28,36,0.28),transparent_70%)]"
+      {/* ================= CLOSING CTA (full-bleed scene) ================= */}
+      <section className="relative isolate flex min-h-[78svh] items-center justify-center overflow-hidden border-t border-white/8">
+        <Image
+          src="/images/fleet-collateral.jpg"
+          alt="The full range of Lighthouse output: wrapped vans and a coach, gazebo, flags, banners and printed collateral under stadium light"
+          fill
+          sizes="100vw"
+          className="-z-10 object-cover"
         />
-        <div className="relative mx-auto max-w-6xl px-4 py-24 text-center sm:px-6 sm:py-36">
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-ink/78" />
+        <div className="mx-auto max-w-3xl px-4 py-24 text-center sm:px-6">
           <Reveal>
-            <h2 className="font-display mx-auto max-w-2xl text-4xl font-bold tracking-tight text-white sm:text-6xl/[1.03]">
+            <h2 className="font-display mx-auto max-w-2xl text-4xl font-bold tracking-tight text-white sm:text-6xl/[1.0]">
               Start your print job today.
             </h2>
           </Reveal>
           <Reveal delay={100}>
-            <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-mist">
+            <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-paper/85">
               Send the brief on WhatsApp and the team will come back with a
               quote, usually the same day.
             </p>
           </Reveal>
           <Reveal delay={200}>
-            <div className="mt-9 flex justify-center">
+            <div className="mt-9 flex flex-col items-center gap-4">
               <Cta href={wa("Hi Lighthouse Print, I'd like to start a print job.")}>
                 Get a quote on WhatsApp
               </Cta>
+              <p className="text-sm text-paper/70">
+                Prefer to talk?{" "}
+                <a
+                  href={`tel:${site.phones[0].tel}`}
+                  className="font-medium text-paper underline-offset-4 hover:underline"
+                >
+                  Call {site.phones[0].label}
+                </a>
+              </p>
             </div>
           </Reveal>
         </div>

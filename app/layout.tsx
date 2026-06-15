@@ -1,16 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque } from "next/font/google";
+import { Schibsted_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BeamLoader from "@/components/BeamLoader";
 import { site } from "@/lib/site";
 
-// Single family, committed weight contrast: Bricolage's optical sizing
-// covers display and body, and one font file set keeps mobile-data
-// payloads lean.
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+// One lean variable family. Schibsted Grotesk is a sharp editorial
+// grotesque: tight and confident at display sizes, even and legible as
+// body. A single font set keeps mobile-data payloads minimal.
+const schibsted = Schibsted_Grotesk({
+  variable: "--font-schibsted",
   subsets: ["latin"],
   display: "swap",
 });
@@ -44,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${bricolage.variable} h-full antialiased`}>
+    <html lang="en" className={`${schibsted.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         <a
           href="#main"

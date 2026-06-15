@@ -4,13 +4,37 @@ import Link from "next/link";
 import Cta, { Eyebrow } from "@/components/Cta";
 import Reveal from "@/components/Reveal";
 import { services } from "@/data/services";
-import { waQuote } from "@/lib/site";
+import { site, wa, waQuote } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Services",
   description:
     "Litho print, digital print, design studio, vehicle branding and wide-format print: Lighthouse Print's five crafts, in depth.",
 };
+
+// Real workflow, in order: genuine process guidance, not a sales funnel.
+const steps = [
+  {
+    n: "01",
+    title: "Send your brief",
+    body: "Message us on WhatsApp with sizes, quantities, your deadline and any artwork you already have.",
+  },
+  {
+    n: "02",
+    title: "Quote & proof",
+    body: "We come back with a quote, usually the same day, and a proof for you to sign off before anything runs.",
+  },
+  {
+    n: "03",
+    title: "Print & finish",
+    body: "Your job runs on the right press, then through in-house finishing: cutting, folding and binding.",
+  },
+  {
+    n: "04",
+    title: "Collect or deliver",
+    body: "Pick up from Avondale, or we arrange delivery. Fleet wraps and signage are fitted by our team.",
+  },
+];
 
 export default function ServicesPage() {
   return (
@@ -86,7 +110,7 @@ export default function ServicesPage() {
                     >
                       {s.name}
                     </h2>
-                    <p className="mt-3 text-base font-medium text-signal-tint">
+                    <p className="mt-3 text-base font-medium text-paper">
                       {s.tagline}
                     </p>
                   </Reveal>
@@ -130,6 +154,62 @@ export default function ServicesPage() {
           </section>
         );
       })}
+
+      {/* ---- how it works (real workflow) + closing ---- */}
+      <section
+        aria-labelledby="how-it-works"
+        className="border-t border-white/8 bg-ink-deep"
+      >
+        <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
+          <Reveal>
+            <Eyebrow>How it works</Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2
+              id="how-it-works"
+              className="font-display mt-4 max-w-2xl text-3xl font-bold tracking-tight text-white sm:text-5xl/[1.02]"
+            >
+              From your brief to off the press.
+            </h2>
+          </Reveal>
+          <ol className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+            {steps.map((s, i) => (
+              <Reveal as="li" key={s.n} delay={i * 80}>
+                <p className="font-display text-2xl font-bold tracking-tight text-mist/45">
+                  {s.n}
+                </p>
+                <h3 className="font-display mt-3 text-lg font-bold tracking-tight text-paper">
+                  {s.title}
+                </h3>
+                <p className="mt-2.5 text-sm leading-relaxed text-mist">
+                  {s.body}
+                </p>
+              </Reveal>
+            ))}
+          </ol>
+          <Reveal delay={120}>
+            <div className="mt-16 flex flex-col items-center gap-4 border-t border-white/8 pt-12 text-center">
+              <h2 className="font-display max-w-xl text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                Tell us what you need printed.
+              </h2>
+              <div className="mt-2 flex flex-col items-center gap-4">
+                <Cta href={wa("Hi Lighthouse Print, I'd like a quote.")}>
+                  Get a quote on WhatsApp
+                </Cta>
+                <p className="text-sm text-paper/70">
+                  Prefer to talk?{" "}
+                  <a
+                    href={`tel:${site.phones[0].tel}`}
+                    className="font-medium text-paper underline-offset-4 hover:underline"
+                  >
+                    Call {site.phones[0].label}
+                  </a>
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
     </>
   );
 }

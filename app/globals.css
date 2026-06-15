@@ -15,8 +15,8 @@
   --color-slate: #4a5568; /* muted text on paper, 6.91:1 */
   --color-mist: #a8b0c2; /* muted text on ink, 8.91:1 */
 
-  --font-display: var(--font-bricolage);
-  --font-sans: var(--font-bricolage);
+  --font-display: var(--font-schibsted);
+  --font-sans: var(--font-schibsted);
 
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-swing: cubic-bezier(0.32, 0.72, 0, 1);
@@ -49,6 +49,27 @@ body {
   color: var(--color-paper);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Clip transient horizontal overflow from entrance transforms and the
+     hero parallax scale without creating a scroll container. */
+  overflow-x: clip;
+}
+
+/* Optically set large type: balanced heading lines, no body orphans */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Display headings carry a touch of negative tracking by default; the
+   per-element Tailwind tracking utilities refine from here. */
+.font-display {
+  letter-spacing: -0.02em;
 }
 
 /* Anchored sections land clear of the fixed navbar */
@@ -82,19 +103,24 @@ body {
     will-change: transform, opacity;
   }
 
-  .reveal.from-left {
-    transform: translateX(-32px);
-  }
+  /* Horizontal entrances only where there's a two-column layout to
+     justify them; on smaller screens they'd push full-width blocks
+     off-canvas, so they fall back to the vertical reveal. */
+  @media (min-width: 1024px) {
+    .reveal.from-left {
+      transform: translateX(-32px);
+    }
 
-  .reveal.from-right {
-    transform: translateX(32px);
+    .reveal.from-right {
+      transform: translateX(32px);
+    }
   }
 }
 
 .reveal {
   transition:
-    opacity 0.9s var(--ease-out-strong),
-    transform 0.9s var(--ease-out-strong);
+    opacity 0.7s var(--ease-out-strong),
+    transform 0.7s var(--ease-out-strong);
   transition-delay: var(--reveal-delay, 0ms);
 }
 
@@ -131,6 +157,47 @@ body {
   .clip-reveal {
     clip-path: inset(0 0 0 0 round 16px);
     transition: none;
+  }
+}
+
+/* ---------- Signature scroll moment: hero press parallax ----------
+   Scroll-scrubbed drift + scale on the hero image, GPU transform only.
+   Progressive enhancement: runs only where scroll-driven timelines are
+   supported and motion is allowed; every other browser stays static. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .hero-parallax {
+      animation: hero-parallax linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 100vh;
+      will-change: transform;
+    }
+    .hero-copy-rise {
+      animation: hero-copy-rise linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 70vh;
+      will-change: transform, opacity;
+    }
+  }
+}
+
+@keyframes hero-parallax {
+  from {
+    transform: scale(1.05) translateY(0);
+  }
+  to {
+    transform: scale(1.14) translateY(3.5%);
+  }
+}
+
+@keyframes hero-copy-rise {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-14%);
+    opacity: 0.55;
   }
 }
 
