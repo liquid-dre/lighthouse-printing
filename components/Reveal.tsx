@@ -6,24 +6,19 @@ type RevealProps = {
   children: ReactNode;
   /** Stagger delay in ms, applied via CSS custom property. */
   delay?: number;
-  /** Use the cinematic clip-path reveal instead of the fade-up. */
-  clip?: boolean;
-  /** Entrance direction for the fade variant. Defaults to "up". */
-  from?: "up" | "left" | "right";
   className?: string;
   as?: "div" | "section" | "li" | "figure";
 };
 
 /**
- * Adds `.is-visible` when the element enters the viewport (once).
- * All motion lives in CSS so it runs off the main thread and the
- * prefers-reduced-motion fallback is handled in globals.css.
+ * Fade-up reveal for copy blocks. Adds `.is-visible` once the element
+ * enters the viewport. All motion lives in CSS (transform/opacity), and
+ * the prefers-reduced-motion + no-JS fallbacks are handled in globals.css.
+ * (Media uses PrintReveal for the printer-feed instead.)
  */
 export default function Reveal({
   children,
   delay = 0,
-  clip = false,
-  from = "up",
   className = "",
   as: Tag = "div",
 }: RevealProps) {
@@ -51,9 +46,7 @@ export default function Reveal({
     <Tag
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ref={ref as any}
-      className={`${clip ? "clip-reveal" : "reveal"} ${
-        !clip && from !== "up" ? `from-${from}` : ""
-      } ${className}`}
+      className={`reveal ${className}`}
       style={delay ? ({ "--reveal-delay": `${delay}ms` } as React.CSSProperties) : undefined}
     >
       {children}

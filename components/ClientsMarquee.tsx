@@ -57,7 +57,7 @@ export default function ClientsMarquee() {
                   width={106}
                   height={106}
                   sizes="64px"
-                  className="h-14 w-14 rounded-full sm:h-16 sm:w-16"
+                  className="h-14 w-14 rounded-full bg-white ring-1 ring-ink/10 sm:h-16 sm:w-16"
                 />
               </li>
             )),
@@ -69,7 +69,7 @@ export default function ClientsMarquee() {
         onClick={() => setPaused((v) => !v)}
         aria-pressed={paused}
         aria-label={paused ? "Play client logos" : "Pause client logos"}
-        className="btn absolute -bottom-2 right-0 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-mist hover:border-white/30 hover:text-white"
+        className="btn absolute -bottom-2 right-0 flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 bg-white text-muted hover:border-ink/30 hover:text-ink"
       >
         {paused ? (
           <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" className="h-3.5 w-3.5">

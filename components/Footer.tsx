@@ -5,7 +5,7 @@ import { services } from "@/data/services";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/8 bg-ink-deep">
+    <footer className="on-ink border-t border-ink/10 bg-ink">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
@@ -19,16 +19,16 @@ export default function Footer() {
                 className="h-8 w-auto"
               />
               <span className="font-display text-lg font-bold tracking-tight text-paper">
-                Lighthouse<span className="text-signal-tint"> Print</span>
+                Lighthouse<span className="text-signal"> Print</span>
               </span>
             </Link>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-mist">
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-paper/65">
               Zimbabwe&rsquo;s print production powerhouse. Over a decade of
               one-stop innovative print solutions from Avondale, Harare.
             </p>
-            <p className="mt-4 text-xs leading-relaxed text-mist/80">
-              Xerox certified business partner · Certified MPS Next-Generation
-              Distributor · Xerox equipment supported by LTG Xerox Certified
+            <p className="mt-4 text-xs leading-relaxed text-paper/55">
+              Xerox certified business partner and certified MPS Next-Generation
+              Distributor. Xerox equipment is supported by LTG Xerox Certified
               Engineers in Harare.
             </p>
             <div className="mt-6 flex gap-3">
@@ -38,7 +38,7 @@ export default function Footer() {
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-mist hover:border-white/30 hover:text-white"
+                  className="btn flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-paper/65 hover:border-white/30 hover:text-paper"
                   aria-label={`Lighthouse Print on ${s.label}`}
                 >
                   {s.label === "Facebook" ? (
@@ -58,7 +58,7 @@ export default function Footer() {
           </div>
 
           <nav aria-label="Services">
-            <h2 className="text-[11px] font-medium uppercase tracking-[0.3em] text-mist/80">
+            <h2 className="text-[11px] font-medium uppercase tracking-[0.3em] text-paper/55">
               Services
             </h2>
             <ul className="mt-3">
@@ -66,7 +66,7 @@ export default function Footer() {
                 <li key={s.slug}>
                   <Link
                     href={`/services/${s.slug}`}
-                    className="inline-flex min-h-11 items-center text-sm text-mist transition-colors duration-200 hover:text-white"
+                    className="inline-flex min-h-11 items-center text-sm text-paper/65 transition-colors duration-200 hover:text-paper"
                   >
                     {s.name}
                   </Link>
@@ -76,7 +76,7 @@ export default function Footer() {
           </nav>
 
           <nav aria-label="Lighthouse Group">
-            <h2 className="text-[11px] font-medium uppercase tracking-[0.3em] text-mist/80">
+            <h2 className="text-[11px] font-medium uppercase tracking-[0.3em] text-paper/55">
               The Group
             </h2>
             <ul className="mt-3">
@@ -86,7 +86,7 @@ export default function Footer() {
                     href={g.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-11 items-center text-sm text-mist transition-colors duration-200 hover:text-white"
+                    className="inline-flex min-h-11 items-center text-sm text-paper/65 transition-colors duration-200 hover:text-paper"
                   >
                     {g.label}
                   </a>
@@ -95,7 +95,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/about"
-                  className="inline-flex min-h-11 items-center text-sm text-mist transition-colors duration-200 hover:text-white"
+                  className="inline-flex min-h-11 items-center text-sm text-paper/65 transition-colors duration-200 hover:text-paper"
                 >
                   About Lighthouse Print
                 </Link>
@@ -104,14 +104,14 @@ export default function Footer() {
           </nav>
 
           <div>
-            <h2 className="text-[11px] font-medium uppercase tracking-[0.3em] text-mist/80">
+            <h2 className="text-[11px] font-medium uppercase tracking-[0.3em] text-paper/55">
               Head office
             </h2>
             <a
               href={site.mapsLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-block py-2 text-sm leading-relaxed text-mist transition-colors duration-200 hover:text-white"
+              className="mt-3 inline-block py-2 text-sm leading-relaxed text-paper/65 transition-colors duration-200 hover:text-paper"
             >
               {site.address.street},
               <br />
@@ -124,7 +124,7 @@ export default function Footer() {
                 <li key={p.tel}>
                   <a
                     href={`tel:${p.tel}`}
-                    className="inline-flex min-h-11 items-center text-sm text-mist transition-colors duration-200 hover:text-white"
+                    className="inline-flex min-h-11 items-center text-sm text-paper/65 transition-colors duration-200 hover:text-paper"
                   >
                     {p.label}
                   </a>
@@ -142,7 +142,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-white/8 pt-6 text-xs text-mist/80 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-3 border-t border-white/8 pt-6 text-xs text-paper/55 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} Lighthouse Print. Part of the
             Lighthouse Group: Print, Technology and Digital.
