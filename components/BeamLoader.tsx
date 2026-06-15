@@ -111,7 +111,7 @@ export default function BeamLoader() {
           <path className="motif" style={vars(300, 0.95)} d="M84 300 H156 V368 H84 Z M132 300 L156 322" />
           {/* ink droplets (ink up red) */}
           <path className="motif" style={vars(80, 1.05)} d="M196 282 c8 12 12 18 12 25 a12 12 0 1 1 -24 0 c0 -7 4 -13 12 -25 Z" />
-          <path className="ink-fill" style={dvar(1.62)} d="M196 287 c6 9 9 14 9 20 a9 9 0 1 1 -18 0 c0 -6 3 -11 9 -20 Z" fill="#111113" stroke="none" />
+          <path className="ink-fill" style={dvar(1.62)} d="M196 287 c6 9 9 14 9 20 a9 9 0 1 1 -18 0 c0 -6 3 -11 9 -20 Z" fill="#E01C24" stroke="none" />
           <path className="motif" style={vars(60, 1.15)} d="M226 330 c5 8 8 12 8 17 a8 8 0 1 1 -16 0 c0 -5 3 -9 8 -17 Z" />
         </g>
 
@@ -154,7 +154,7 @@ export default function BeamLoader() {
             <circle cx="628" cy="372" r="6.5" />
             <path d="M580 350 c10 6 22 6 34 0" />
           </g>
-          <path className="ink-fill" style={dvar(1.82)} d="M583 351 c9 5 19 5 28 0 l-4 -3 h-20 Z" fill="#111113" stroke="none" />
+          <path className="ink-fill" style={dvar(1.82)} d="M583 351 c9 5 19 5 28 0 l-4 -3 h-20 Z" fill="#E01C24" stroke="none" />
         </g>
 
         {/* ---- wordmark + tagline (clear readable zone) ---- */}
@@ -168,7 +168,7 @@ export default function BeamLoader() {
             fontWeight="700"
             letterSpacing="6"
           >
-            LIGHTHOUSE <tspan fill="#111113">PRINT</tspan>
+            LIGHTHOUSE <tspan fill="#E01C24">PRINT</tspan>
           </text>
           <text
             className="tagline"

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Cta, { Eyebrow } from "@/components/Cta";
 import Reveal from "@/components/Reveal";
-import PrintReveal from "@/components/PrintReveal";
 import { getService, services } from "@/data/services";
 import { site, waQuote } from "@/lib/site";
 
@@ -77,7 +76,8 @@ export default async function ServiceDetailPage({ params }: Props) {
               </div>
             </Reveal>
           </div>
-          <PrintReveal as="figure" eager className="overflow-hidden rounded-2xl border border-ink/10">
+          {/* Hero/LCP visual: flat on load (above-the-fold exemption) */}
+          <figure className="overflow-hidden rounded-2xl border border-ink/10">
             <Image
               src={service.hero.src}
               alt={service.hero.alt}
@@ -88,7 +88,7 @@ export default async function ServiceDetailPage({ params }: Props) {
               quality={80}
               className="aspect-[16/11] w-full object-cover"
             />
-          </PrintReveal>
+          </figure>
         </div>
       </section>
 
@@ -146,8 +146,8 @@ export default async function ServiceDetailPage({ params }: Props) {
             </h2>
           </Reveal>
           <ul className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {service.gallery.map((img, i) => (
-              <PrintReveal as="li" key={img.src} delay={(i % 3) * 90} className="lift overflow-hidden rounded-2xl border border-ink/10 bg-white">
+            {service.gallery.map((img) => (
+              <li key={img.src} className="lift overflow-hidden rounded-2xl border border-ink/10 bg-white">
                 <Image
                   src={img.src}
                   alt={img.alt}
@@ -160,7 +160,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                       : "aspect-[4/3] w-full object-cover"
                   }
                 />
-              </PrintReveal>
+              </li>
             ))}
           </ul>
         </div>
@@ -195,15 +195,16 @@ export default async function ServiceDetailPage({ params }: Props) {
                 href={`/services/${next.slug}`}
                 className="lift group block w-full max-w-sm overflow-hidden rounded-2xl border border-ink/10 bg-paper hover:border-ink/25 md:w-80"
               >
-                <PrintReveal className="relative aspect-[16/9] overflow-hidden">
+                <div className="overflow-hidden">
                   <Image
                     src={next.hero.src}
                     alt={next.hero.alt}
-                    fill
+                    width={1280}
+                    height={720}
                     sizes="320px"
-                    className="object-cover transition-transform duration-700 ease-(--ease-out-strong) group-hover:scale-[1.04]"
+                    className="aspect-[16/9] w-full object-cover transition-transform duration-700 ease-(--ease-out-strong) group-hover:scale-[1.04]"
                   />
-                </PrintReveal>
+                </div>
                 <div className="px-5 py-4">
                   <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-muted">
                     Next craft

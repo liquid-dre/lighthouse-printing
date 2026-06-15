@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Cta, { Eyebrow } from "@/components/Cta";
 import Reveal from "@/components/Reveal";
-import PrintReveal from "@/components/PrintReveal";
 import ClientsMarquee from "@/components/ClientsMarquee";
 import { site, wa } from "@/lib/site";
 
@@ -104,7 +103,7 @@ export default function AboutPage() {
               </div>
             </Reveal>
           </div>
-          <PrintReveal as="figure" className="overflow-hidden rounded-2xl border border-ink/10">
+          <figure className="overflow-hidden rounded-2xl border border-ink/10">
             <Image
               src="/images/hero-press.jpg"
               alt="The Heidelberg Speedmaster SM-74 on a clean studio stage"
@@ -113,7 +112,7 @@ export default function AboutPage() {
               sizes="(max-width: 1024px) 100vw, 40vw"
               className="aspect-[4/5] w-full object-cover lg:aspect-auto lg:h-full"
             />
-          </PrintReveal>
+          </figure>
         </div>
       </section>
 
@@ -230,7 +229,7 @@ export default function AboutPage() {
                 </ul>
               </Reveal>
             </div>
-            <PrintReveal as="figure" className="overflow-hidden rounded-2xl border border-ink/10 bg-white">
+            <figure className="overflow-hidden rounded-2xl border border-ink/10 bg-white">
               <Image
                 src="/images/heidelberg-sm74.jpg"
                 alt="Heidelberg Speedmaster SM-74 sheet-fed offset press"
@@ -239,7 +238,7 @@ export default function AboutPage() {
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="aspect-[16/10] w-full object-contain p-6"
               />
-            </PrintReveal>
+            </figure>
           </div>
         </div>
       </section>
