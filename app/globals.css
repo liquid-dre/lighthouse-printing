@@ -1,26 +1,358 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Palette extracted from /public/brand/logo.png (brand red #E01C24) and
+     tuned for WCAG AA on their respective surfaces. */
+  --color-ink: #0b0d16;
+  --color-ink-deep: #07090f;
+  --color-ink-soft: #131726;
+  --color-signal: #e01c24; /* extracted brand red, 4.82:1 with white text */
+  --color-signal-deep: #b5121a; /* hover / pressed, 6.85:1 with white */
+  --color-signal-tint: #ff5c63; /* red as text on ink, 6.43:1 */
+  --color-beam: #ffc24b; /* lamp gold, 11.98:1 on ink */
+  --color-paper: #f7f5f0;
+  --color-paper-soft: #edeae2;
+  --color-slate: #4a5568; /* muted text on paper, 6.91:1 */
+  --color-mist: #a8b0c2; /* muted text on ink, 8.91:1 */
+
+  --font-display: var(--font-bricolage);
+  --font-sans: var(--font-bricolage);
+
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-swing: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --animate-marquee: marquee 42s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html {
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Anchored sections land clear of the fixed navbar */
+[id] {
+  scroll-margin-top: 7rem;
+}
+
+::selection {
+  background: var(--color-signal);
+  color: #fff;
+}
+
+/* Visible focus for keyboard users, on both ink and paper surfaces */
+:focus-visible {
+  outline: 2px solid var(--color-beam);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.on-paper :focus-visible {
+  outline-color: var(--color-signal-deep);
+}
+
+/* ---------- Scroll reveal (driven by components/Reveal.tsx) ----------
+   Hidden states are gated behind `scripting: enabled` so content stays
+   visible when JS is unavailable (no-JS, crawlers, paused transitions). */
+@media (scripting: enabled) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    will-change: transform, opacity;
+  }
+
+  .reveal.from-left {
+    transform: translateX(-32px);
+  }
+
+  .reveal.from-right {
+    transform: translateX(32px);
+  }
+}
+
+.reveal {
+  transition:
+    opacity 0.9s var(--ease-out-strong),
+    transform 0.9s var(--ease-out-strong);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transform: none;
+    filter: none;
+    transition: opacity 0.25s ease;
+  }
+}
+
+/* Cinematic clip reveal for showcase imagery */
+@media (scripting: enabled) {
+  .clip-reveal {
+    clip-path: inset(12% 6% 12% 6% round 16px);
+    will-change: clip-path;
+  }
+}
+
+.clip-reveal {
+  transition: clip-path 1.2s var(--ease-swing);
+}
+
+.clip-reveal.is-visible {
+  clip-path: inset(0 0 0 0 round 16px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clip-reveal {
+    clip-path: inset(0 0 0 0 round 16px);
+    transition: none;
+  }
+}
+
+/* Pause the client marquee when motion is reduced */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none !important;
+    transform: none !important;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* ---------- "The Beam" loader ---------- */
+@property --beam-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.beam-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: var(--color-ink-deep);
+  display: grid;
+  place-items: center;
+}
+
+.beam-loader.is-exiting {
+  animation: beam-wipe 0.9s var(--ease-swing) forwards;
+  mask-image: conic-gradient(
+    from 0deg at 50% 38%,
+    transparent var(--beam-angle),
+    black calc(var(--beam-angle) + 28deg)
+  );
+  -webkit-mask-image: conic-gradient(
+    from 0deg at 50% 38%,
+    transparent var(--beam-angle),
+    black calc(var(--beam-angle) + 28deg)
+  );
+}
+
+@keyframes beam-wipe {
+  from {
+    --beam-angle: 0deg;
+  }
+  to {
+    --beam-angle: 360deg;
+  }
+}
+
+.beam-loader.is-skipped {
+  transition: opacity 0.3s var(--ease-out-strong);
+  opacity: 0;
+}
+
+/* Stroke draw-in for loader motifs */
+.beam-loader .motif {
+  stroke-dasharray: var(--len, 240);
+  stroke-dashoffset: var(--len, 240);
+  animation: motif-draw 1.1s var(--ease-out-strong) forwards;
+  animation-delay: var(--d, 0.35s);
+}
+
+@keyframes motif-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.beam-loader .ink-fill {
+  opacity: 0;
+  animation: ink-up 0.5s var(--ease-out-strong) forwards;
+  animation-delay: var(--d, 1.6s);
+}
+
+@keyframes ink-up {
+  to {
+    opacity: 1;
+  }
+}
+
+.beam-loader .lamp-glow {
+  opacity: 0;
+  animation: lamp-on 0.45s var(--ease-out-strong) forwards;
+  animation-delay: 1.95s;
+}
+
+@keyframes lamp-on {
+  to {
+    opacity: 1;
+  }
+}
+
+.beam-loader .beam-wedge {
+  opacity: 0;
+  transform-origin: 360px 132px;
+  animation:
+    lamp-on 0.3s var(--ease-out-strong) 2.15s forwards,
+    beam-rotate 0.95s var(--ease-swing) 2.15s forwards;
+}
+
+@keyframes beam-rotate {
+  from {
+    transform: rotate(-40deg);
+  }
+  to {
+    transform: rotate(310deg);
+  }
+}
+
+.beam-loader .wordmark {
+  opacity: 0;
+  animation: ink-up 0.7s var(--ease-out-strong) 0.12s forwards;
+}
+
+.beam-loader .tagline {
+  opacity: 0;
+  animation: ink-up 0.7s var(--ease-out-strong) 0.4s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beam-loader .motif {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .beam-loader .ink-fill,
+  .beam-loader .lamp-glow,
+  .beam-loader .wordmark,
+  .beam-loader .tagline {
+    animation: ink-up 0.3s ease forwards;
+  }
+  .beam-loader .beam-wedge {
+    animation: none;
+    opacity: 0;
+  }
+  .beam-loader.is-exiting {
+    animation: none;
+    mask-image: none;
+    -webkit-mask-image: none;
+    transition: opacity 0.35s ease;
+    opacity: 0;
+  }
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  transition:
+    transform 0.16s var(--ease-out-strong),
+    background-color 0.2s var(--ease-out-strong),
+    border-color 0.2s var(--ease-out-strong),
+    color 0.2s var(--ease-out-strong);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn .btn-orb {
+  transition: transform 0.3s var(--ease-out-strong);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover .btn-orb {
+    transform: translateX(3px) scale(1.05);
+  }
+}
+
+/* Card hover lift */
+.lift {
+  transition:
+    transform 0.5s var(--ease-out-strong),
+    border-color 0.3s var(--ease-out-strong),
+    background-color 0.3s var(--ease-out-strong);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lift:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lift,
+  .lift:hover {
+    transform: none;
+  }
+}
+
+/* Mobile nav overlay link stagger */
+.menu-link {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.5s var(--ease-out-strong),
+    transform 0.5s var(--ease-out-strong);
+  transition-delay: var(--stagger, 0ms);
+}
+
+.menu-open .menu-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-link {
+    transform: none;
+    transition: opacity 0.2s ease;
+  }
+}
+
+/* Skip link, hidden until keyboard focus */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  transition: transform 0.2s var(--ease-out-strong);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
