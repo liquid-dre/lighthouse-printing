@@ -15,8 +15,9 @@
   --color-line: #11111322; /* hairline on paper */
   --color-beam: #ffc24b; /* lamp gold — LOADER ONLY */
 
-  --font-display: var(--font-bricolage);
+  --font-display: var(--font-poppins);
   --font-sans: var(--font-schibsted);
+  --font-script: var(--font-caveat);
 
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-swing: cubic-bezier(0.32, 0.72, 0, 1);
@@ -64,7 +65,14 @@ p {
 }
 
 .font-display {
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
+}
+
+/* Brush-pen accent face for safari/print punchlines, used with restraint. */
+.font-script {
+  font-family: var(--font-script), ui-rounded, cursive;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
 /* Anchored sections land clear of the fixed navbar */
@@ -306,6 +314,57 @@ p {
   .menu-link {
     transform: none;
     transition: opacity 0.2s ease;
+  }
+}
+
+/* Brand texture: the Ndebele/mandala motif from the corporate profile, laid as
+   a faint overlay on red/ink colour-blocks. The host element needs `relative`
+   + `overflow-hidden`; its content should sit at `z-10` so text is never tinted. */
+.brand-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/brand/pattern-big5.svg");
+  background-size: 220px 220px;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Brand rule: the red vertical bar beside lead copy (profile pp.5/12). */
+.brand-rule {
+  border-left: 3px solid var(--color-signal);
+  padding-left: 1.25rem;
+}
+
+/* Subtle route transition: content fades up on each navigation (keyed remount).
+   Transform/opacity only; collapses to a plain fade under reduced motion. */
+.route-fade {
+  animation: route-in 0.34s var(--ease-out-strong) both;
+}
+
+@keyframes route-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-fade {
+    animation: route-in-reduced 0.2s ease both;
+  }
+  @keyframes route-in-reduced {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }
 

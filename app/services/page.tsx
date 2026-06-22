@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Cta, { Eyebrow } from "@/components/Cta";
 import Reveal from "@/components/Reveal";
+import PageHero from "@/components/PageHero";
 import PressFeed, { type FeedItem } from "@/components/PressFeed";
 import { services } from "@/data/services";
 import { site, wa, waQuote } from "@/lib/site";
@@ -35,6 +36,60 @@ const steps = [
   },
 ];
 
+// X-board print-product benefits (corporate profile p.20). `paths` are the
+// inline-SVG strokes for each benefit's icon, drawn in the site's icon idiom.
+const printBenefits = [
+  {
+    label: "100% Repulpable",
+    gloss: "Fully recyclable board — kinder on the planet.",
+    paths: ["M20 11.5a8 8 0 1 0-2.5 6.3", "M20 19v-4h-4"],
+  },
+  {
+    label: "Ultra-lightweight",
+    gloss: "Easy to lift, carry and ship anywhere.",
+    paths: ["M5 19c0-8 6-14 14-14 0 8-6 14-14 14Z", "M5 19l7-7"],
+  },
+  {
+    label: "Strong",
+    gloss: "Rigid and durable enough to stand on its own.",
+    paths: ["M12 3 5 6v5c0 4 3 7 7 8 4-1 7-4 7-8V6l-7-3Z", "M9 12l2 2 4-4"],
+  },
+  {
+    label: "Non-toxic",
+    gloss: "Safe to handle, display and dispose of.",
+    paths: ["M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z", "M8.5 12l2.5 2.5 4.5-5"],
+  },
+  {
+    label: "Flat-packable",
+    gloss: "Folds flat for quick transport and storage.",
+    paths: ["M3 8l9-4 9 4-9 4-9-4Z", "M3 12l9 4 9-4", "M3 16l9 4 9-4"],
+  },
+  {
+    label: "Direct-printable",
+    gloss: "Print straight onto the board, no mounting.",
+    paths: [
+      "M6 9V4h12v5",
+      "M6 18H4v-6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6h-2",
+      "M8 14h8v6H8z",
+    ],
+  },
+];
+
+const printUseCases = [
+  {
+    title: "Exhibition stands",
+    body: "Board stands and displays are quick to assemble, lightweight and flat-packable — and they lift your expo space.",
+  },
+  {
+    title: "Signage & display",
+    body: "Direct-printable and CNC-friendly, for plenty of customisation across your signage and display needs.",
+  },
+  {
+    title: "Retail displays",
+    body: "The customisable nature of X-board lets you build a retail environment that both attracts customers and promotes your brand.",
+  },
+];
+
 // The five crafts, fed through the press window (PressFeed).
 const feedItems: FeedItem[] = services.map((s) => ({
   src: s.hero.src,
@@ -50,18 +105,19 @@ const feedItems: FeedItem[] = services.map((s) => ({
 export default function ServicesPage() {
   return (
     <>
-      {/* ---- header ---- */}
-      <section className="mx-auto max-w-6xl px-4 pb-12 pt-36 sm:px-6 sm:pt-44">
-        <Reveal>
-          <Eyebrow>Services</Eyebrow>
-        </Reveal>
-        <Reveal delay={80}>
-          <h1 className="font-display mt-6 max-w-4xl text-5xl font-extrabold tracking-tight text-ink sm:text-7xl/[0.95]">
-            Everything a brand needs to be seen, printed under one roof.
-          </h1>
-        </Reveal>
+      {/* ---- hero (bold red) ---- */}
+      <PageHero
+        variant="red"
+        eyebrow="Services"
+        title={
+          <>
+            Everything a brand needs to be seen,{" "}
+            <span className="font-script text-ink">printed under one roof.</span>
+          </>
+        }
+      >
         <Reveal delay={160}>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-paper/85">
             Five specialist crafts that hand work to each other: artwork flows
             from the studio to the right press, and out to finishing, wrapping
             or installation without leaving the building.
@@ -73,17 +129,93 @@ export default function ServicesPage() {
               <a
                 key={s.slug}
                 href={`/services/${s.slug}`}
-                className="btn inline-flex min-h-11 items-center rounded-full border border-ink/15 bg-white px-4 text-sm font-medium text-muted hover:border-ink/40 hover:text-ink"
+                className="btn inline-flex min-h-11 items-center rounded-full border border-white/25 bg-white/10 px-4 text-sm font-medium text-paper hover:bg-white/20"
               >
                 {s.name}
               </a>
             ))}
           </nav>
         </Reveal>
-      </section>
+      </PageHero>
 
       {/* ---- the five crafts, fed through the press ---- */}
       <PressFeed items={feedItems} />
+
+      {/* ---- the print revolution (X-board) ---- */}
+      <section aria-labelledby="print-revolution" className="border-t border-ink/10">
+        <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
+          <Reveal>
+            <Eyebrow>The print revolution</Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2
+              id="print-revolution"
+              className="font-display mt-4 max-w-2xl text-4xl font-extrabold tracking-tight text-ink sm:text-6xl/[0.95]"
+            >
+              Welcome the print revolution.
+            </h2>
+          </Reveal>
+          <Reveal delay={140}>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+              X-board&mdash;a 100% repulpable display board, printed direct. A
+              first for Zimbabwe: ultra-light, strong and flat-packable.
+            </p>
+          </Reveal>
+
+          <ul className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {printBenefits.map((b, i) => (
+              <Reveal as="li" key={b.label} delay={i * 60} className="h-full">
+                <div className="flex h-full flex-col rounded-2xl border border-ink/10 bg-white p-6">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-signal/10 text-signal-deep">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                      className="h-5 w-5"
+                    >
+                      {b.paths.map((d) => (
+                        <path key={d} d={d} />
+                      ))}
+                    </svg>
+                  </span>
+                  <h3 className="font-display mt-4 text-lg font-bold tracking-tight text-ink">
+                    {b.label}
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted">
+                    {b.gloss}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </ul>
+
+          <div className="mt-16">
+            <Reveal>
+              <h3 className="text-[11px] font-medium uppercase tracking-[0.3em] text-muted">
+                Built for
+              </h3>
+            </Reveal>
+            <ul className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-3">
+              {printUseCases.map((u, i) => (
+                <Reveal as="li" key={u.title} delay={i * 70} className="h-full">
+                  <div className="h-full rounded-2xl border border-ink/10 bg-paper p-6">
+                    <h4 className="font-display text-lg font-bold tracking-tight text-ink">
+                      {u.title}
+                    </h4>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">
+                      {u.body}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
 
       {/* ---- how it works (real workflow) ---- */}
       <section aria-labelledby="how-it-works" className="border-t border-ink/10">

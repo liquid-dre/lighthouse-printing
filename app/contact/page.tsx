@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Cta, { Eyebrow } from "@/components/Cta";
 import Reveal from "@/components/Reveal";
+import PageHero from "@/components/PageHero";
 import { site, wa } from "@/lib/site";
+import { blurProps } from "@/lib/blur";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -12,17 +15,18 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <section className="mx-auto max-w-6xl px-4 pb-20 pt-36 sm:px-6 sm:pt-44">
-        <Reveal>
-          <Eyebrow>Contact</Eyebrow>
-        </Reveal>
-        <Reveal delay={80}>
-          <h1 className="font-display mt-6 max-w-3xl text-5xl font-extrabold tracking-tight text-ink sm:text-7xl/[0.95]">
-            The fastest quote in print is one message away.
-          </h1>
-        </Reveal>
+      <PageHero
+        variant="ink"
+        eyebrow="Contact"
+        title={
+          <>
+            The fastest quote in print is one message{" "}
+            <span className="font-script text-signal">away.</span>
+          </>
+        }
+      >
         <Reveal delay={160}>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-paper/80">
             WhatsApp is the quickest way to reach the team. Send your brief,
             sizes and quantities and we&rsquo;ll come back with a quote. Prefer
             to talk? Every number below is click-to-call.
@@ -33,13 +37,15 @@ export default function ContactPage() {
             <Cta href={wa("Hi Lighthouse Print, I'd like a quote.")}>
               Get a quote on WhatsApp
             </Cta>
-            <Cta href={`tel:${site.phones[0].tel}`} variant="ghost">
+            <Cta href={`tel:${site.phones[0].tel}`} variant="ghost" onDark>
               Call {site.phones[0].label}
             </Cta>
           </div>
         </Reveal>
+      </PageHero>
 
-        <div className="mt-20 grid gap-5 lg:grid-cols-[1.1fr_1fr]">
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+        <div className="grid gap-5 lg:grid-cols-[1.1fr_1fr]">
           {/* ---- phones + address + socials ---- */}
           <div className="grid content-start gap-5">
             <Reveal>
@@ -130,9 +136,80 @@ export default function ContactPage() {
         </div>
       </section>
 
+      {/* ---- free coffee & wifi (espresso amenity, ink colour-block) ---- */}
+      <section className="brand-texture on-ink relative overflow-hidden bg-ink">
+        <div className="relative z-10 mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+            <div>
+              <Reveal>
+                <Eyebrow tone="dark">When you visit us</Eyebrow>
+              </Reveal>
+              <Reveal delay={80}>
+                <h2 className="font-display mt-4 text-4xl font-extrabold tracking-tight text-paper sm:text-6xl/[0.97]">
+                  Depresso?{" "}
+                  <span className="font-script text-signal">
+                    Enjoy a free espresso.
+                  </span>
+                </h2>
+              </Reveal>
+              <Reveal delay={140}>
+                <p className="mt-6 max-w-md text-base leading-relaxed text-paper/70">
+                  Free coffee and free Wi-Fi while we serve you. Pull up a seat
+                  at the Avondale office and get online in three quick steps.
+                </p>
+              </Reveal>
+              <Reveal delay={200}>
+                <ol className="mt-8 space-y-3.5">
+                  {[
+                    <>
+                      Turn on Wi-Fi and select{" "}
+                      <strong className="font-semibold text-paper">
+                        &lsquo;LIGHTHOUSE HOTSPOT&rsquo;
+                      </strong>
+                    </>,
+                    <>Open your browser &mdash; the portal pops up</>,
+                    <>
+                      Select{" "}
+                      <strong className="font-semibold text-paper">
+                        &lsquo;FREE HOUR&rsquo;
+                      </strong>{" "}
+                      and enjoy
+                    </>,
+                  ].map((step, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center gap-3.5 text-[15px] leading-relaxed text-paper/80"
+                    >
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-signal text-[11px] font-bold text-white">
+                        {i + 1}
+                      </span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </Reveal>
+            </div>
+            <Reveal delay={120}>
+              <figure className="overflow-hidden rounded-2xl border border-white/10">
+                <Image
+                  src="/images/espresso-cup.jpg"
+                  alt="A takeaway coffee cup illustrated with the hand-lettered words 'Coffee is always a good idea', surrounded by roasted coffee beans"
+                  width={1333}
+                  height={1347}
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  quality={82}
+                  {...blurProps("/images/espresso-cup.jpg")}
+                  className="w-full"
+                />
+              </figure>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       {/* ---- closing (red colour-block) ---- */}
-      <section className="on-ink bg-signal">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-20 text-center sm:px-6 sm:py-24">
+      <section className="brand-texture on-ink relative overflow-hidden bg-signal">
+        <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-20 text-center sm:px-6 sm:py-24">
           <Reveal>
             <p className="font-display max-w-2xl text-2xl font-bold leading-snug tracking-tight text-white sm:text-4xl/[1.05]">
               Bring artwork, or bring nothing but the idea. The design studio

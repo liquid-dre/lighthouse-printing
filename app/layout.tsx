@@ -1,17 +1,27 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Schibsted_Grotesk } from "next/font/google";
+import { Poppins, Caveat, Schibsted_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BeamLoader from "@/components/BeamLoader";
+import RouteTransition from "@/components/RouteTransition";
 import { site } from "@/lib/site";
 
-// Editorial pairing on a contrast axis: Bricolage Grotesque (characterful,
-// ink-trapped) carries the oversized display headings; Schibsted Grotesk
-// (neutral, even) carries body and UI. Two lean variable fonts, latin only.
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+// Brand-matched trio: Poppins (heavy geometric grotesque) carries the display
+// headings to echo the corporate profile's headline letterforms; Caveat (brush
+// pen) carries the playful safari/print punchlines; Schibsted Grotesk stays on
+// body and UI. Latin only.
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  display: "swap",
+});
+
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  weight: ["600", "700"],
   display: "swap",
 });
 
@@ -52,7 +62,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bricolage.variable} ${schibsted.variable} h-full antialiased`}
+      className={`${poppins.variable} ${caveat.variable} ${schibsted.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <a
@@ -64,7 +74,7 @@ export default function RootLayout({
         <BeamLoader />
         <Navbar />
         <main id="main" className="flex-1">
-          {children}
+          <RouteTransition>{children}</RouteTransition>
         </main>
         <Footer />
       </body>

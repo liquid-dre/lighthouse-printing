@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220" viewBox="0 0 220 220" fill="none" stroke="#ffffff" stroke-width="1.4">
+  <!-- Tiling motif inspired by the Lighthouse profile's Ndebele/mandala watermark.
+       White strokes on transparent; opacity + blend handled by the .brand-texture helper. -->
+  <!-- centre mandala -->
+  <g>
+    <circle cx="110" cy="110" r="13"/>
+    <circle cx="110" cy="110" r="24"/>
+    <circle cx="110" cy="110" r="35" stroke-dasharray="3 5"/>
+    <circle cx="110" cy="110" r="2.4" fill="#ffffff" stroke="none"/>
+    <g>
+      <path d="M110 75 V70 M110 145 V150 M75 110 H70 M145 110 H150 M85 85 l-3.5 -3.5 M135 85 l3.5 -3.5 M85 135 l-3.5 3.5 M135 135 l3.5 3.5"/>
+    </g>
+  </g>
+  <!-- corner quarter-mandalas (complete into full circles across tiles) -->
+  <g>
+    <circle cx="0" cy="0" r="16"/><circle cx="0" cy="0" r="27"/>
+    <circle cx="220" cy="0" r="16"/><circle cx="220" cy="0" r="27"/>
+    <circle cx="0" cy="220" r="16"/><circle cx="0" cy="220" r="27"/>
+    <circle cx="220" cy="220" r="16"/><circle cx="220" cy="220" r="27"/>
+  </g>
+  <!-- Ndebele triangle bands top & bottom (tile into continuous chevron rows) -->
+  <g>
+    <path d="M55 6 l9 12 l9 -12 M147 6 l9 12 l9 -12"/>
+    <path d="M55 214 l9 -12 l9 12 M147 214 l9 -12 l9 12"/>
+  </g>
+  <!-- side ticks -->
+  <g stroke-width="1.2">
+    <path d="M6 92 h10 M6 110 h14 M6 128 h10"/>
+    <path d="M214 92 h-10 M214 110 h-14 M214 128 h-10"/>
+  </g>
+</svg>
