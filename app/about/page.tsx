@@ -4,6 +4,7 @@ import Cta, { Eyebrow } from "@/components/Cta";
 import Reveal from "@/components/Reveal";
 import ClientsMarquee from "@/components/ClientsMarquee";
 import { site, wa } from "@/lib/site";
+import { blurProps } from "@/lib/blur";
 
 export const metadata: Metadata = {
   title: "About",
@@ -99,7 +100,7 @@ export default function AboutPage() {
         <div className="mt-12 grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:gap-20">
           <div>
             <Reveal delay={120}>
-              <p className="text-lg leading-relaxed text-muted">
+              <p className="brand-rule text-lg leading-relaxed text-muted">
                 Lighthouse Print was incorporated in 2010 with one objective:
                 provide one-stop innovative printing solutions. Today that
                 means a full range of print services, a graphic design studio,
@@ -138,6 +139,7 @@ export default function AboutPage() {
               width={1400}
               height={1500}
               sizes="(max-width: 1024px) 100vw, 40vw"
+              {...blurProps("/images/hero-press.jpg")}
               className="aspect-[4/5] w-full object-cover lg:aspect-auto lg:h-full"
             />
           </figure>
@@ -232,7 +234,8 @@ export default function AboutPage() {
           </Reveal>
           <Reveal delay={80}>
             <h2 className="font-display mt-4 max-w-2xl text-4xl font-extrabold tracking-tight text-ink sm:text-6xl/[0.95]">
-              This light of ours, we let it shine.
+              This light of ours, we{" "}
+              <span className="font-script text-signal">let it shine.</span>
             </h2>
           </Reveal>
           <Reveal delay={140}>
@@ -324,6 +327,7 @@ export default function AboutPage() {
                 width={1600}
                 height={1000}
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                {...blurProps("/images/heidelberg-sm74.jpg")}
                 className="aspect-[16/10] w-full object-contain p-6"
               />
             </figure>
@@ -332,8 +336,8 @@ export default function AboutPage() {
       </section>
 
       {/* ---- who we serve + clients (ink colour-block) ---- */}
-      <section className="on-ink bg-ink">
-        <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
+      <section className="brand-texture on-ink relative overflow-hidden bg-ink">
+        <div className="relative z-10 mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
           <Reveal>
             <h2 className="font-display max-w-2xl text-4xl font-extrabold tracking-tight text-paper sm:text-6xl/[0.98]">
               The preferred provider for the institutions that can&rsquo;t

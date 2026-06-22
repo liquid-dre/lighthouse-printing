@@ -3,6 +3,7 @@ import Image from "next/image";
 import Cta, { Eyebrow } from "@/components/Cta";
 import Reveal from "@/components/Reveal";
 import { site, wa } from "@/lib/site";
+import { blurProps } from "@/lib/blur";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -132,8 +133,8 @@ export default function ContactPage() {
       </section>
 
       {/* ---- free coffee & wifi (espresso amenity, ink colour-block) ---- */}
-      <section className="on-ink bg-ink">
-        <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
+      <section className="brand-texture on-ink relative overflow-hidden bg-ink">
+        <div className="relative z-10 mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
           <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
             <div>
               <Reveal>
@@ -141,7 +142,10 @@ export default function ContactPage() {
               </Reveal>
               <Reveal delay={80}>
                 <h2 className="font-display mt-4 text-4xl font-extrabold tracking-tight text-paper sm:text-6xl/[0.97]">
-                  Depresso? Enjoy a free espresso.
+                  Depresso?{" "}
+                  <span className="font-script text-signal">
+                    Enjoy a free espresso.
+                  </span>
                 </h2>
               </Reveal>
               <Reveal delay={140}>
@@ -190,6 +194,7 @@ export default function ContactPage() {
                   height={1347}
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   quality={82}
+                  {...blurProps("/images/espresso-cup.jpg")}
                   className="w-full"
                 />
               </figure>
@@ -199,8 +204,8 @@ export default function ContactPage() {
       </section>
 
       {/* ---- closing (red colour-block) ---- */}
-      <section className="on-ink bg-signal">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-20 text-center sm:px-6 sm:py-24">
+      <section className="brand-texture on-ink relative overflow-hidden bg-signal">
+        <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-20 text-center sm:px-6 sm:py-24">
           <Reveal>
             <p className="font-display max-w-2xl text-2xl font-bold leading-snug tracking-tight text-white sm:text-4xl/[1.05]">
               Bring artwork, or bring nothing but the idea. The design studio

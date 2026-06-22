@@ -5,23 +5,22 @@ import { services } from "@/data/services";
 
 export default function Footer() {
   return (
-    <footer className="on-ink border-t border-ink/10 bg-ink">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+    <footer className="brand-texture on-ink relative overflow-hidden border-t border-ink/10 bg-ink">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <Link href="/" className="inline-flex items-center gap-2.5" aria-label="Lighthouse Print, home">
+            <Link href="/" className="inline-flex items-center" aria-label="Lighthouse Print, home">
               <Image
-                src="/brand/mark.png"
-                alt=""
-                aria-hidden="true"
-                width={374}
-                height={348}
-                className="h-8 w-auto"
+                src="/brand/logo-full.png"
+                alt="Lighthouse Print"
+                width={3033}
+                height={722}
+                className="h-9 w-auto"
               />
-              <span className="font-display text-lg font-bold tracking-tight text-paper">
-                Lighthouse<span className="text-signal"> Print</span>
-              </span>
             </Link>
+            <p className="mt-3 text-[11px] font-medium uppercase tracking-[0.18em] text-paper/45">
+              A subsidiary of Lighthouse Technology Group
+            </p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-paper/65">
               Zimbabwe&rsquo;s print production powerhouse. Over a decade of
               one-stop innovative print solutions from Avondale, Harare.

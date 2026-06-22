@@ -87,7 +87,7 @@ export default function Navbar() {
             className="h-7 w-auto"
           />
           <span className="font-display text-[17px] font-bold tracking-tight text-ink">
-            Lighthouse Print
+            Lighthouse<span className="text-signal"> Print</span>
           </span>
         </Link>
 

@@ -6,6 +6,7 @@ import ServiceCard from "@/components/ServiceCard";
 import ClientsMarquee from "@/components/ClientsMarquee";
 import { services } from "@/data/services";
 import { site, wa, waQuote } from "@/lib/site";
+import { blurProps } from "@/lib/blur";
 
 const trustClaims = [
   "Over a decade of excellence",
@@ -15,14 +16,15 @@ const trustClaims = [
   "Trusted by NGOs, embassies, government & corporates",
 ];
 
-// Playful safari taglines from the corporate-profile "Jungle Menu", keyed to
-// each service so the home band reads in the brand's own voice.
-const safariTaglines: Record<string, string> = {
-  "digital-print": "Grab n' Go",
-  "litho-print": "The classic choice",
-  "wide-format-print": "Unforgettably filling",
-  "design-studio": "Gourmet selection",
-  "vehicle-branding": "The brand on the prowl",
+// The corporate profile's signature concept: the five flagship crafts are the
+// Big 5. Each service is paired with its animal and the profile's "Jungle Menu"
+// tagline, so the home band reads in the brand's own voice.
+const big5: Record<string, { animal: string; tagline: string }> = {
+  "design-studio": { animal: "Lion", tagline: "Gourmet selection" },
+  "digital-print": { animal: "Leopard", tagline: "Grab n' Go" },
+  "litho-print": { animal: "Elephant", tagline: "The classic choice" },
+  "wide-format-print": { animal: "Rhino", tagline: "Unforgettably filling" },
+  "vehicle-branding": { animal: "Buffalo", tagline: "The brand on the prowl" },
 };
 
 const whyLighthouse = [
@@ -61,7 +63,7 @@ export default function Home() {
         </Reveal>
         <div className="mt-10 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
           <Reveal delay={160}>
-            <p className="max-w-md text-lg leading-relaxed text-muted">
+            <p className="brand-rule max-w-md text-lg leading-relaxed text-muted">
               Litho, digital, design, vehicle branding and wide-format, under
               one roof. Over a decade of one-stop, innovative print solutions.
             </p>
@@ -90,6 +92,7 @@ export default function Home() {
             preload
             sizes="(max-width: 1152px) 100vw, 1152px"
             quality={80}
+            {...blurProps("/images/hero-press.jpg")}
             className="w-full"
           />
         </figure>
@@ -177,33 +180,35 @@ export default function Home() {
         </ul>
       </section>
 
-      {/* ================= JUNGLE MENU (Big 5 safari band) ================= */}
-      <section className="on-ink relative isolate overflow-hidden">
+      {/* ================= HOME OF THE BIG 5 (safari flagship) ================= */}
+      <section className="brand-texture on-ink relative isolate overflow-hidden">
         <Image
           src="/images/savanna-big5.jpg"
           alt="Two lions walking through golden savanna grass with a herd of zebra grazing behind them"
           fill
           sizes="100vw"
           quality={80}
+          {...blurProps("/images/savanna-big5.jpg")}
           className="-z-10 object-cover object-[center_72%]"
         />
         <div
           aria-hidden="true"
           className="absolute inset-0 -z-10 bg-gradient-to-t from-ink/92 via-ink/65 to-ink/45"
         />
-        <div className="mx-auto flex min-h-[36rem] max-w-6xl flex-col justify-end px-4 py-20 sm:px-6 sm:py-24">
+        <div className="relative z-10 mx-auto flex min-h-[36rem] max-w-6xl flex-col justify-end px-4 py-20 sm:px-6 sm:py-24">
           <Reveal>
-            <Eyebrow tone="dark">Home of the Big 5</Eyebrow>
+            <Eyebrow tone="dark">Our Jungle Menu</Eyebrow>
           </Reveal>
           <Reveal delay={80}>
-            <h2 className="font-display mt-5 max-w-2xl text-5xl font-extrabold tracking-tight text-paper sm:text-7xl/[0.95]">
-              Our Jungle Menu.
+            <h2 className="font-script mt-3 text-6xl leading-[0.95] text-paper sm:text-8xl">
+              Home of the Big 5
             </h2>
           </Reveal>
           <Reveal delay={140}>
-            <p className="mt-5 max-w-md text-lg leading-relaxed text-paper/80">
-              Herbivore, carnivore or scavenger? Whatever you came to print,
-              we&rsquo;ve got you covered.
+            <p className="mt-5 max-w-lg text-lg leading-relaxed text-paper/80">
+              Five flagship presses, one wild pride. Herbivore, carnivore or
+              scavenger&mdash;whatever you came to print, we&rsquo;ve got you
+              covered.
             </p>
           </Reveal>
 
@@ -212,27 +217,32 @@ export default function Home() {
               <Reveal as="li" key={s.slug} delay={i * 60} className="h-full">
                 <Link
                   href={`/services/${s.slug}`}
-                  className="group flex h-full flex-col justify-between gap-8 bg-ink/45 p-6 backdrop-blur-sm transition-colors duration-300 hover:bg-ink/70"
+                  className="group flex h-full flex-col justify-between gap-7 bg-ink/45 p-6 backdrop-blur-sm transition-colors duration-300 hover:bg-ink/70"
                 >
-                  <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-paper/55">
-                    {s.shortName}
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-signal">
+                    {big5[s.slug].animal}
                   </span>
-                  <span className="flex items-end justify-between gap-3">
-                    <span className="font-display text-xl font-bold leading-tight tracking-tight text-paper">
-                      {safariTaglines[s.slug]}
+                  <span className="block">
+                    <span className="font-display block text-lg font-bold leading-tight tracking-tight text-paper">
+                      {s.shortName}
                     </span>
-                    <svg
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                      className="h-3.5 w-3.5 shrink-0 text-paper/70 transition-transform duration-300 ease-(--ease-out-strong) group-hover:translate-x-1"
-                    >
-                      <path d="M2.5 8h11M9 3.5 13.5 8 9 12.5" />
-                    </svg>
+                    <span className="mt-2 flex items-end justify-between gap-3">
+                      <span className="text-sm text-paper/70">
+                        {big5[s.slug].tagline}
+                      </span>
+                      <svg
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                        className="h-3.5 w-3.5 shrink-0 text-paper/70 transition-transform duration-300 ease-(--ease-out-strong) group-hover:translate-x-1"
+                      >
+                        <path d="M2.5 8h11M9 3.5 13.5 8 9 12.5" />
+                      </svg>
+                    </span>
                   </span>
                 </Link>
               </Reveal>
@@ -242,8 +252,8 @@ export default function Home() {
       </section>
 
       {/* ================= INK COLOUR-BLOCK divider ================= */}
-      <section className="on-ink bg-ink">
-        <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
+      <section className="brand-texture on-ink relative overflow-hidden bg-ink">
+        <div className="relative z-10 mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
           <Reveal>
             <p className="font-display max-w-4xl text-3xl font-extrabold leading-[1.05] tracking-tight text-paper sm:text-6xl/[1.02]">
               One of the top-performing Xerox distributors in Africa, and the
@@ -269,10 +279,7 @@ export default function Home() {
         <ul className="mt-16 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
           {whyLighthouse.map((w, i) => (
             <Reveal as="li" key={w.title} delay={i * 80}>
-              <p className="font-display text-3xl font-extrabold tracking-tight text-signal">
-                0{i + 1}
-              </p>
-              <h3 className="font-display mt-4 border-t border-ink/15 pt-4 text-lg font-bold tracking-tight text-ink">
+              <h3 className="font-display border-t-2 border-signal pt-4 text-lg font-bold tracking-tight text-ink">
                 {w.title}
               </h3>
               <p className="mt-2.5 text-sm leading-relaxed text-muted">{w.body}</p>
@@ -314,6 +321,7 @@ export default function Home() {
                 width={2000}
                 height={1250}
                 sizes="(max-width: 1024px) 100vw, 60vw"
+                {...blurProps("/images/vehicle-hevoi.jpg")}
                 className="w-full"
               />
             </figure>
@@ -341,8 +349,8 @@ export default function Home() {
       </section>
 
       {/* ================= RED COLOUR-BLOCK closing ================= */}
-      <section className="on-ink bg-signal">
-        <div className="mx-auto max-w-6xl px-4 py-24 text-center sm:px-6 sm:py-32">
+      <section className="brand-texture on-ink relative overflow-hidden bg-signal">
+        <div className="relative z-10 mx-auto max-w-6xl px-4 py-24 text-center sm:px-6 sm:py-32">
           <Reveal>
             <h2 className="font-display mx-auto max-w-3xl text-5xl font-extrabold tracking-tight text-white sm:text-7xl/[0.95]">
               Start your print job today.

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Service } from "@/data/services";
+import { blurProps } from "@/lib/blur";
 
 /**
  * Equal-height service card on the light theme: a white surface on paper
@@ -28,6 +29,7 @@ export default function ServiceCard({
           height={750}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           preload={priorityImage}
+          {...blurProps(service.hero.src)}
           className="aspect-[16/10] w-full object-cover transition-transform duration-700 ease-(--ease-out-strong) group-hover:scale-[1.03]"
         />
       </div>
