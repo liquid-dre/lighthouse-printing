@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Cta, { Eyebrow } from "@/components/Cta";
 import Reveal from "@/components/Reveal";
 import { site, wa } from "@/lib/site";
@@ -127,6 +128,73 @@ export default function ContactPage() {
               />
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      {/* ---- free coffee & wifi (espresso amenity, ink colour-block) ---- */}
+      <section className="on-ink bg-ink">
+        <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+            <div>
+              <Reveal>
+                <Eyebrow tone="dark">When you visit us</Eyebrow>
+              </Reveal>
+              <Reveal delay={80}>
+                <h2 className="font-display mt-4 text-4xl font-extrabold tracking-tight text-paper sm:text-6xl/[0.97]">
+                  Depresso? Enjoy a free espresso.
+                </h2>
+              </Reveal>
+              <Reveal delay={140}>
+                <p className="mt-6 max-w-md text-base leading-relaxed text-paper/70">
+                  Free coffee and free Wi-Fi while we serve you. Pull up a seat
+                  at the Avondale office and get online in three quick steps.
+                </p>
+              </Reveal>
+              <Reveal delay={200}>
+                <ol className="mt-8 space-y-3.5">
+                  {[
+                    <>
+                      Turn on Wi-Fi and select{" "}
+                      <strong className="font-semibold text-paper">
+                        &lsquo;LIGHTHOUSE HOTSPOT&rsquo;
+                      </strong>
+                    </>,
+                    <>Open your browser &mdash; the portal pops up</>,
+                    <>
+                      Select{" "}
+                      <strong className="font-semibold text-paper">
+                        &lsquo;FREE HOUR&rsquo;
+                      </strong>{" "}
+                      and enjoy
+                    </>,
+                  ].map((step, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center gap-3.5 text-[15px] leading-relaxed text-paper/80"
+                    >
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-signal text-[11px] font-bold text-white">
+                        {i + 1}
+                      </span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </Reveal>
+            </div>
+            <Reveal delay={120}>
+              <figure className="overflow-hidden rounded-2xl border border-white/10">
+                <Image
+                  src="/images/espresso-cup.jpg"
+                  alt="A takeaway coffee cup illustrated with the hand-lettered words 'Coffee is always a good idea', surrounded by roasted coffee beans"
+                  width={1333}
+                  height={1347}
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  quality={82}
+                  className="w-full"
+                />
+              </figure>
+            </Reveal>
+          </div>
         </div>
       </section>
 

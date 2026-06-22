@@ -55,6 +55,34 @@ const partners = [
   "LTG Xerox Certified Engineers in Harare",
 ];
 
+const awards = [
+  {
+    years: "2014 · 2015 · 2017",
+    title: "Print Services Company of the Year",
+    body: "Zimbabwe Business Council",
+  },
+  {
+    years: "2017",
+    title: "Top 100 Business Brands",
+    body: "Zimbabwe Business Brands",
+  },
+  {
+    years: "2019",
+    title: "HR Achiever of the Year",
+    body: "Institute of People Management of Zimbabwe — HR Excellence Awards",
+  },
+  {
+    years: "2017",
+    title: "Top Business Brand in Print Machine Distribution",
+    body: "Zimbabwe Top Business Awards",
+  },
+  {
+    years: "2018",
+    title: "Most Outstanding Company of the Year",
+    body: "Zimbabwe Megafest Awards",
+  },
+];
+
 export default function AboutPage() {
   return (
     <>
@@ -194,6 +222,66 @@ export default function AboutPage() {
             );
           })}
         </ul>
+      </section>
+
+      {/* ---- awards & recognition (timeline) ---- */}
+      <section className="border-t border-ink/10">
+        <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
+          <Reveal>
+            <Eyebrow>Awards &amp; recognition</Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2 className="font-display mt-4 max-w-2xl text-4xl font-extrabold tracking-tight text-ink sm:text-6xl/[0.95]">
+              This light of ours, we let it shine.
+            </h2>
+          </Reveal>
+          <Reveal delay={140}>
+            <p className="mt-6 max-w-md text-base leading-relaxed text-muted">
+              A decade of recognition from the institutions that grade
+              Zimbabwean business, print and people.
+            </p>
+          </Reveal>
+
+          <ol className="relative mt-16">
+            <span
+              aria-hidden="true"
+              className="absolute bottom-1 left-[6px] top-1 w-0.5 bg-signal/25 lg:left-1/2 lg:-ml-px"
+            />
+            {awards.map((a, i) => {
+              const left = i % 2 === 0;
+              return (
+                <Reveal
+                  as="li"
+                  key={a.title}
+                  delay={i * 70}
+                  className="relative pb-10 pl-9 last:pb-0 lg:grid lg:grid-cols-2 lg:gap-x-16 lg:pb-14 lg:pl-0"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-0 top-1 h-3.5 w-3.5 rounded-full border-2 border-paper bg-signal lg:left-1/2 lg:-ml-[7px]"
+                  />
+                  <div
+                    className={
+                      left
+                        ? "lg:col-start-1 lg:pr-12 lg:text-right"
+                        : "lg:col-start-2 lg:pl-12"
+                    }
+                  >
+                    <p className="text-sm font-semibold tracking-wide text-signal-deep">
+                      {a.years}
+                    </p>
+                    <h3 className="font-display mt-1.5 text-xl font-bold tracking-tight text-ink sm:text-2xl">
+                      {a.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">
+                      {a.body}
+                    </p>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </ol>
+        </div>
       </section>
 
       {/* ---- partners ---- */}

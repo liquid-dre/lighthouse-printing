@@ -15,6 +15,16 @@ const trustClaims = [
   "Trusted by NGOs, embassies, government & corporates",
 ];
 
+// Playful safari taglines from the corporate-profile "Jungle Menu", keyed to
+// each service so the home band reads in the brand's own voice.
+const safariTaglines: Record<string, string> = {
+  "digital-print": "Grab n' Go",
+  "litho-print": "The classic choice",
+  "wide-format-print": "Unforgettably filling",
+  "design-studio": "Gourmet selection",
+  "vehicle-branding": "The brand on the prowl",
+};
+
 const whyLighthouse = [
   {
     title: "One-stop capacity",
@@ -165,6 +175,70 @@ export default function Home() {
             </div>
           </Reveal>
         </ul>
+      </section>
+
+      {/* ================= JUNGLE MENU (Big 5 safari band) ================= */}
+      <section className="on-ink relative isolate overflow-hidden">
+        <Image
+          src="/images/savanna-big5.jpg"
+          alt="Two lions walking through golden savanna grass with a herd of zebra grazing behind them"
+          fill
+          sizes="100vw"
+          quality={80}
+          className="-z-10 object-cover object-[center_72%]"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-gradient-to-t from-ink/92 via-ink/65 to-ink/45"
+        />
+        <div className="mx-auto flex min-h-[36rem] max-w-6xl flex-col justify-end px-4 py-20 sm:px-6 sm:py-24">
+          <Reveal>
+            <Eyebrow tone="dark">Home of the Big 5</Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2 className="font-display mt-5 max-w-2xl text-5xl font-extrabold tracking-tight text-paper sm:text-7xl/[0.95]">
+              Our Jungle Menu.
+            </h2>
+          </Reveal>
+          <Reveal delay={140}>
+            <p className="mt-5 max-w-md text-lg leading-relaxed text-paper/80">
+              Herbivore, carnivore or scavenger? Whatever you came to print,
+              we&rsquo;ve got you covered.
+            </p>
+          </Reveal>
+
+          <ul className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/15 bg-white/15 sm:grid-cols-2 lg:grid-cols-5">
+            {services.map((s, i) => (
+              <Reveal as="li" key={s.slug} delay={i * 60} className="h-full">
+                <Link
+                  href={`/services/${s.slug}`}
+                  className="group flex h-full flex-col justify-between gap-8 bg-ink/45 p-6 backdrop-blur-sm transition-colors duration-300 hover:bg-ink/70"
+                >
+                  <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-paper/55">
+                    {s.shortName}
+                  </span>
+                  <span className="flex items-end justify-between gap-3">
+                    <span className="font-display text-xl font-bold leading-tight tracking-tight text-paper">
+                      {safariTaglines[s.slug]}
+                    </span>
+                    <svg
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                      className="h-3.5 w-3.5 shrink-0 text-paper/70 transition-transform duration-300 ease-(--ease-out-strong) group-hover:translate-x-1"
+                    >
+                      <path d="M2.5 8h11M9 3.5 13.5 8 9 12.5" />
+                    </svg>
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
       </section>
 
       {/* ================= INK COLOUR-BLOCK divider ================= */}
