@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Cta, { Eyebrow } from "@/components/Cta";
 import Reveal from "@/components/Reveal";
+import PageHero from "@/components/PageHero";
 import { site, wa } from "@/lib/site";
 import { blurProps } from "@/lib/blur";
 
@@ -14,17 +15,18 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <section className="mx-auto max-w-6xl px-4 pb-20 pt-36 sm:px-6 sm:pt-44">
-        <Reveal>
-          <Eyebrow>Contact</Eyebrow>
-        </Reveal>
-        <Reveal delay={80}>
-          <h1 className="font-display mt-6 max-w-3xl text-5xl font-extrabold tracking-tight text-ink sm:text-7xl/[0.95]">
-            The fastest quote in print is one message away.
-          </h1>
-        </Reveal>
+      <PageHero
+        variant="ink"
+        eyebrow="Contact"
+        title={
+          <>
+            The fastest quote in print is one message{" "}
+            <span className="text-signal">away.</span>
+          </>
+        }
+      >
         <Reveal delay={160}>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-paper/80">
             WhatsApp is the quickest way to reach the team. Send your brief,
             sizes and quantities and we&rsquo;ll come back with a quote. Prefer
             to talk? Every number below is click-to-call.
@@ -35,13 +37,15 @@ export default function ContactPage() {
             <Cta href={wa("Hi Lighthouse Print, I'd like a quote.")}>
               Get a quote on WhatsApp
             </Cta>
-            <Cta href={`tel:${site.phones[0].tel}`} variant="ghost">
+            <Cta href={`tel:${site.phones[0].tel}`} variant="ghost" onDark>
               Call {site.phones[0].label}
             </Cta>
           </div>
         </Reveal>
+      </PageHero>
 
-        <div className="mt-20 grid gap-5 lg:grid-cols-[1.1fr_1fr]">
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+        <div className="grid gap-5 lg:grid-cols-[1.1fr_1fr]">
           {/* ---- phones + address + socials ---- */}
           <div className="grid content-start gap-5">
             <Reveal>

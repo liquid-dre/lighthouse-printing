@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Cta, { Eyebrow } from "@/components/Cta";
 import Reveal from "@/components/Reveal";
+import PageHero from "@/components/PageHero";
 import ClientsMarquee from "@/components/ClientsMarquee";
 import { site, wa } from "@/lib/site";
 import { blurProps } from "@/lib/blur";
@@ -87,19 +88,33 @@ const awards = [
 export default function AboutPage() {
   return (
     <>
+      {/* ---- hero (safari photo) ---- */}
+      <PageHero
+        variant="photo"
+        eyebrow="About us · since 2010"
+        title={<>A decade and counting of one-stop print excellence.</>}
+      >
+        <Reveal delay={160}>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-paper/85">
+            Zimbabwe&rsquo;s print production powerhouse&mdash;design, litho,
+            digital, vehicle branding and wide-format under one roof, and one
+            beam of the wider Lighthouse Group.
+          </p>
+        </Reveal>
+        <Reveal delay={240}>
+          <div className="mt-9">
+            <Cta href={wa("Hi Lighthouse Print, I'd like a quote.")}>
+              Get a quote on WhatsApp
+            </Cta>
+          </div>
+        </Reveal>
+      </PageHero>
+
       {/* ---- story ---- */}
-      <section className="mx-auto max-w-6xl px-4 pb-20 pt-36 sm:px-6 sm:pt-44">
-        <Reveal>
-          <Eyebrow>About us · since 2010</Eyebrow>
-        </Reveal>
-        <Reveal delay={80}>
-          <h1 className="font-display mt-6 max-w-4xl text-5xl font-extrabold tracking-tight text-ink sm:text-7xl/[0.95]">
-            A decade and counting of one-stop print excellence.
-          </h1>
-        </Reveal>
-        <div className="mt-12 grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:gap-20">
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
+        <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:gap-20">
           <div>
-            <Reveal delay={120}>
+            <Reveal>
               <p className="brand-rule text-lg leading-relaxed text-muted">
                 Lighthouse Print was incorporated in 2010 with one objective:
                 provide one-stop innovative printing solutions. Today that
@@ -108,7 +123,7 @@ export default function AboutPage() {
                 supported by Xerox Certified Engineers.
               </p>
             </Reveal>
-            <Reveal delay={180}>
+            <Reveal delay={80}>
               <p className="mt-5 text-lg leading-relaxed text-muted">
                 We are powered by a young, qualified and passionate team with
                 the skills to respond to a technologically evolving print
@@ -119,7 +134,7 @@ export default function AboutPage() {
                 what motivates us.
               </p>
             </Reveal>
-            <Reveal delay={240}>
+            <Reveal delay={140}>
               <div className="mt-9 flex flex-wrap gap-2.5">
                 {values.map((v) => (
                   <span
@@ -146,30 +161,26 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ---- vision / mission ---- */}
+      {/* ---- our vision (prominent) ---- */}
       <section className="border-y border-ink/10 bg-white">
-        <div className="mx-auto grid max-w-6xl gap-5 px-4 py-20 sm:px-6 sm:py-24 md:grid-cols-2">
-          {[
-            {
-              label: "Our vision",
-              body: "To be the preferred fully-fledged design and print solutions company in Zimbabwe and beyond.",
-            },
-            {
-              label: "Our mission",
-              body: "To profitably meet the needs of our clients by providing creative and innovative solutions.",
-            },
-          ].map((v, i) => (
-            <Reveal key={v.label} delay={i * 100}>
-              <div className="h-full rounded-2xl border border-ink/10 bg-paper p-8">
-                <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-muted">
-                  {v.label}
-                </p>
-                <p className="font-display mt-4 text-2xl font-bold leading-snug tracking-tight text-ink sm:text-3xl">
-                  {v.body}
-                </p>
-              </div>
-            </Reveal>
-          ))}
+        <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
+          <Reveal>
+            <Eyebrow>Our vision</Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <p className="font-display mt-5 max-w-4xl text-4xl font-extrabold leading-[1.03] tracking-tight text-ink sm:text-6xl/[1.0]">
+              To be the <span className="text-signal">preferred</span>{" "}
+              fully-fledged design &amp; print solutions company in Zimbabwe and
+              beyond.
+            </p>
+          </Reveal>
+          <Reveal delay={160}>
+            <p className="brand-rule mt-10 max-w-xl text-base leading-relaxed text-muted">
+              <span className="font-semibold text-ink">Our mission</span>
+              &mdash; to profitably meet the needs of our clients by providing
+              creative and innovative solutions.
+            </p>
+          </Reveal>
         </div>
       </section>
 
@@ -224,6 +235,43 @@ export default function AboutPage() {
             );
           })}
         </ul>
+      </section>
+
+      {/* ---- Xerox / office automation credibility (red band) ---- */}
+      <section className="brand-texture on-ink relative overflow-hidden bg-signal">
+        <div className="relative z-10 mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
+          <Reveal>
+            <Eyebrow tone="dark">Office automation · Xerox</Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2 className="font-display mt-4 max-w-2xl text-4xl font-extrabold tracking-tight text-white sm:text-6xl/[0.95]">
+              Zimbabwe&rsquo;s lead Xerox distributor.
+            </h2>
+          </Reveal>
+          <Reveal delay={140}>
+            <dl className="mt-12 grid gap-x-8 gap-y-8 sm:grid-cols-3">
+              {[
+                { k: "Lead distributor", v: "Zimbabwe" },
+                { k: "Top performer", v: "Across Africa" },
+                { k: "Certified MPS", v: "Next-Generation Distributor" },
+              ].map((f) => (
+                <div key={f.k} className="border-t border-white/25 pt-4">
+                  <dt className="font-display text-xl font-bold tracking-tight text-white">
+                    {f.k}
+                  </dt>
+                  <dd className="mt-1 text-sm text-white/80">{f.v}</dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+          <Reveal delay={220}>
+            <p className="mt-12 max-w-2xl text-base leading-relaxed text-white/90">
+              The preferred service provider for office automation across
+              embassies, government departments, educational institutions,
+              non-governmental organisations and corporates.
+            </p>
+          </Reveal>
+        </div>
       </section>
 
       {/* ---- awards & recognition (timeline) ---- */}
