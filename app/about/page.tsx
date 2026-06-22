@@ -34,12 +34,6 @@ const group = [
     href: "https://www.lighthousedigital.co.zw",
     current: false,
   },
-  {
-    name: "Lighthouse Document Solutions",
-    role: "Managed document workflows and enterprise print services.",
-    href: "https://www.lighthousedocumentsolutions.co.zw",
-    current: false,
-  },
 ];
 
 const served = [
