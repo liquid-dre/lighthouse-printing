@@ -169,7 +169,7 @@ export default function AboutPage() {
           </Reveal>
           <Reveal delay={80}>
             <p className="font-display mt-5 max-w-4xl text-4xl font-extrabold leading-[1.03] tracking-tight text-ink sm:text-6xl/[1.0]">
-              To be the <span className="text-signal">preferred</span>{" "}
+              To be the <span className="font-script text-signal">preferred</span>{" "}
               fully-fledged design &amp; print solutions company in Zimbabwe and
               beyond.
             </p>

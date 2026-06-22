@@ -109,7 +109,12 @@ export default function ServicesPage() {
       <PageHero
         variant="red"
         eyebrow="Services"
-        title={<>Everything a brand needs to be seen, printed under one roof.</>}
+        title={
+          <>
+            Everything a brand needs to be seen,{" "}
+            <span className="font-script text-ink">printed under one roof.</span>
+          </>
+        }
       >
         <Reveal delay={160}>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-paper/85">

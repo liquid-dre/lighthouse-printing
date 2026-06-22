@@ -21,7 +21,7 @@ export default function ContactPage() {
         title={
           <>
             The fastest quote in print is one message{" "}
-            <span className="text-signal">away.</span>
+            <span className="font-script text-signal">away.</span>
           </>
         }
       >

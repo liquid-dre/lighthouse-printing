@@ -58,7 +58,7 @@ export default function Home() {
           <h1 className="font-display mt-6 max-w-5xl text-[3.4rem]/[0.92] font-extrabold tracking-tight text-ink sm:text-8xl/[0.9] lg:text-[8.5rem]/[0.88]">
             Zimbabwe&rsquo;s print
             <br />
-            production <span className="text-signal">powerhouse.</span>
+            production <span className="font-script text-signal">powerhouse.</span>
           </h1>
         </Reveal>
         <div className="mt-10 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
